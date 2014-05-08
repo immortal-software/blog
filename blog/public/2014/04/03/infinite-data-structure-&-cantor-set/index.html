@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Infinite Data Structure &amp; Cantor Set | 猪逻辑公园</title>
+  <meta name="author" content="Yihe Zhu">
+  
+  <meta name="description" content="记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是M">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Infinite Data Structure &amp; Cantor Set"/>
+  <meta property="og:site_name" content="猪逻辑公园"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">猪逻辑公园</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Infinite Data Structure &amp; Cantor Set</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+			
+
+	<!-- content -->
+	<div class="mypage">		
+	    <p><img src="/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png" alt="Cantor Set"></p>
+<p>记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是MATRIX，就是为进程们编制了一个完美的虚拟世界。<br>所以无论是此时正在写博客的我，亦或是读者，都应该感谢操作系统。<br>然而，本文不是要歌颂或是讨论操作系统，只是引申开来，讲一些与之联系的思考。 这里我们要讨论的是处理无穷大的能力。 直截了当的说就是，函数式语言能够很好的刻画递归，此外数据结构本身也可以递归的定义，如果此时，这个函数式语言还支持Lazy Evaluation的特性，那么就为上层编程者提供了一种处理无穷的能力。<br>即你可以通过定义一个无限递归的数据结构，并对他进行运算。<br>举个例子来说，康托三分集是一个非常著名的分形结构。 由德国数学家康托与1883年引入，康托集构造很简单，初始为[0,1]的线段，然后每次对每个线段，从中去除中间三分之一的开区间，对左右两边三分之一各自递归直至无穷。 本文最上的图示就展示了康托集合每一步的划分。<br>康托集合有如下性质：<br>一、包含无穷多个点<br>二、不包含任何非零长度的线段<br>三、总长度为0<br>我们可以通过HASKELL用以下方式来定义康托集：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="code"><pre>import Data.Ratio
+data Cantor <span class="operator">a</span> = Vacant | Interval <span class="operator">a</span> <span class="operator">a</span> (Cantor <span class="operator">a</span>) (Cantor <span class="operator">a</span>) (Cantor <span class="operator">a</span>)
+getL (Interval <span class="operator">a</span> _ _ _ _) = <span class="operator">a</span>
+getR (Interval _ <span class="operator">a</span> _ _ _) = <span class="operator">a</span>
+ 
+buildCantor :: Ratio Integer -&gt; Ratio Integer -&gt; Cantor (Ratio Integer)
+buildCantor l r = (Interval l r) (buildCantor l ((r - l) / <span class="number">3</span> + l)) (Vacant) (buildCantor (r - (r - l) / <span class="number">3</span>) r)
+ 
+inCantor :: (Ord <span class="operator">a</span>) =&gt; (Cantor <span class="operator">a</span>) -&gt; <span class="operator">a</span> -&gt; Bool
+inCantor Vacant _ = False
+inCantor (Interval <span class="operator">a</span> b t1 t2 t3) (x) = (x &gt;= <span class="operator">a</span> &amp;&amp; x &lt;= b)
+ 
+findNumber :: Cantor (Ratio Integer) -&gt; Ratio Integer -&gt; String 
+findNumber (Interval <span class="operator">a</span> b t1 t2 t3) x 
+    | (inCantor t1 x) = <span class="string">"["</span> ++ (show <span class="operator">a</span>) ++ <span class="string">","</span> ++ (show $ getR t1) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t1 x)
+    | (inCantor t3 x) = <span class="string">"["</span> ++ (show $ getL t3) ++ <span class="string">","</span> ++ (show b) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t3 x)
+    | otherwise = <span class="string">"["</span> ++ (show $ getR t1) ++ <span class="string">","</span> ++ (show $ getL t3) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t2 x) 
+findNumber Vacant x = <span class="string">"Bingo!"</span>
+ 
+main = print (findNumber (buildCantor <span class="number">0</span> <span class="number">1</span>) (<span class="number">1</span> % <span class="number">10</span>))
+ 
+</pre></td></tr></table></figure>
+
+
+<p>首先定义数据结构Cantor，他本身要么是个空集，要么是左中右三段。<br>buildCantor函数构造了一个无限的康托集，我们使用Ratio Integer来表示有理数，他可以支持任意高精度。<br>接下来，我们实现findNumber函数在这个无限的结构中寻找一个点是否存在，如果一个点在某一层落入了Vacant，则他不在康托集中，那么我们可以得到输出其路径。<br>很多数都会很快Bingo.<br>例如：输入为12/17,输出为<br>“[2 % 3,1 % 1]=&gt;[2 % 3,7 % 9]=&gt;[19 % 27,20 % 27]=&gt;Bingo!”<br>输入为2/5，则<br>“[1 % 3,2 % 3]=&gt;Bingo!”<br>输入为1/10，看似简单，但<br>“[0 % 1,1 % 3]=&gt;[0 % 1,1 % 9]=&gt;[2 % 27,1 % 9]=&gt;[8 % 81,1 % 9]=&gt;[8 % 81,25 % 243]=&gt;[8 % 81,73 % 729]=&gt;[218 % 2187,73 % 729]=&gt;[656 % 6561,73 % 729]=&gt;[656 % 6561,1969 % 19683]=&gt;[656 % 6561,5905 % 59049]。。。。。。<br>程序在内存耗尽前将永远无法结束，这个点存在于康托集中，但永远找不到他属于那个区间，因为康托集不包含任何非零长度的线段。<br>这个程序的魅力在于我们有能力去刻画这个无限集合，同时，在构造时，不需要事先指定构造层数之类的细节。 由于lazy特性，只要当需要时，我们才会去展开需要的分支，所以无需担心无限的结构一开始耗尽内存。 这个判断程序一个while循环在任何语言中都能实现，但这样的实现方式还是有其独特意义的，因为我们首先定义并构造了这个无限集合，之后我们再对齐运算。 而while的判断实现实际上并没有得到这个集合。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/04/03/先下手真的为强吗？/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/04/03/cellular-automata/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+	
+	</div> <!-- col-md-9/col-md-12 -->
+	
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	Apr 3 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
+
+</div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2014 Yihe Zhu
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+   </html>

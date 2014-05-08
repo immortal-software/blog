@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives | 猪逻辑公园</title>
+  <meta name="author" content="Yihe Zhu">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="猪逻辑公园"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">猪逻辑公园</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+<!-- title -->
+<div class="page-header">
+  <h1 class="archive-title">Archives</h1>
+</div>
+
+<div class="row page">
+  <!-- cols -->
+  
+  <div class="col-md-9">
+	
+
+	  
+	  <!-- display as entry -->
+	  <div class="mypage">
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/04/03/先下手真的为强吗？/" >先下手真的为强吗？</a>
+			<span class="date"> Apr 3 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>先下手为强，后下手遭殃！</p>
+<p>打铁还需自身硬！</p>
+<p>这些是古人留下的古话，多少是有些道理的，但是最近突然研究了一个问题，从而进行了一系列实验，进而得到了一些有趣的结论，这些结论似乎和这些古话存在格格不入的矛盾，在这里和大家分享。</p>
+<p>首先从问题开始，这是一个非常经典的问题，有N个火枪手，每个火枪手都有一个固定的射击命中率。 从第一个人开始射击，他可以选择任何一个还活着的火枪手（除了自己之外）进行射击，如果命中，目标火枪手则立即阵亡。 当第一个火枪手射击之后，则轮到下一个还活着的火枪手进行射击，依此方法轮流射击。直到最后只剩下一个火枪手为止（火枪手每次射击不能故意失误，哪怕结果对他有利）。 每个火枪手都是非常聪明的，他都会选择最有利于自己的射击策略，问每个火枪手幸存的概率。</p>
+<p>举个简单的例子，例如有两个火枪手，命中率分别为30%和100%。 则分析可知，第一个火枪手幸存的概率为30%，第二个火枪手幸存概率为70%，因为如果轮到第二个火枪手射击，由于他命中率百分之百，所以第一火枪手必死，而第一个火枪手唯一幸存的方法，就是在他首先射击的时候击毙对手。</p>
+<p>这个问题可以用状态压缩的动态规划，利用迭代法或者解方程法求解，这里我们不讨论这个问题的解法，只是假设我们有了求解问题的程序之后，能够得到哪些有趣的实验。</p>
+<p>三个火枪手</p>
+<p>我们先从三个火枪手的情形来看，先看第一个情形：三个火枪手的命中率都是100%，这个时候第一个有趣的结果，当然并不十分让人意外，就是此时三个火枪手的幸存概率分别为：[0, 0.50, 0.50]，也就是第一个开枪的火枪手完全没有幸存的可能性，因为他无论向谁射击，那个火枪手必死，从而导致第三者在下一轮直接秒掉他，所以他反而是最悲催的，而此时第二个、第三个火枪手分别有一半的幸存概率，因为这取决于第一个火枪手向谁射击（第一个火枪手无论向谁射击，其幸存概率都是0，所以他会随机选择一个目标）。</p>
+<p>这个结论对第一个火枪手十分不利，在实际情况下，可能第一个火枪手的最佳策略为故意射偏，从而反而获得了幸存的可能，以此类推，之后每个火枪手都会选择故意射偏，从而导致进程无法结束。 在我们的模型假定中，暂时不允许这种可能性的出现，假定每次射击都会倾尽全力。</p>
+<p>第二个情形：三个火枪手的命中率都是80%，此时幸存概率为[21.51%, 37.63%, 40.86%]，此时第一个火枪手尽管先手，但仍然存在劣势，而另外有趣的是，第三个火枪手却拥有最高的幸存概率。</p>
+<p>第三个情形：三个火枪手的命中率都是50%，此时幸存概率为[0.33, 0.33, 0.33]，即三个人幸存概率相同，和顺序无关，这是一个均衡的情形。</p>
+<p>第四个情形：三个火枪手的命中率都是10%，此时幸存概率为[34.08%, 33.31%, 32.61%]，此时第一个火枪手出现了微弱的优势。 即当大家的命中率普遍较低的情况下，第一个火枪手才具有微弱的优势。</p>
+<p>通过这四个数据，可以发现，在三个火枪手的情况下，第一个火枪手都不会拥有显著优势，相反，第三个火枪手在普遍命中率较高的情况下，反而具有后手优势。</p>
+<p>十个火枪手，你该如何幸存？</p>
+<p>接下来，我们直接将人数增长，看看会有什么有趣的结果（以下概率都用百分数表示）</p>
+<p>第一情形：所有人命中率都为100%，此时结论会是什么呢？ 每个火枪手的幸存概率为：</p>
+<p>[15.12 11.22 6.13 3.36 4.15 7.02 10.34 13.08 14.68 14.91] 这时，有趣的情况，先手和后手都具有些许优势，而中间的火枪手最为悲剧。 第一个火枪手终于扬眉吐气，拥有了最高的幸存概率。 第四个火枪手幸存概率仅为3.36%。</p>
+<p>第二情形：所有人命中率仅为1%，即大家都是乱打的，这时，每个火枪手的幸存概率为：</p>
+<p>[10.01 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 9.99]，这个结论在意料之中，即此时先手后手的顺序已经对结果没有影响了，因为大家都几乎射不中，哈哈，这是时候一切靠人品。</p>
+<p>接下来，我们看看如何利用控制变量法进行分析，我们看到，当10个人命中率都是100%时，第四个火枪手的幸存概率仅为3.36，我们试着修改第四个火枪手的命中率，看看是否能够帮助他提高幸存概率。</p>
+<p>我们控制其他火枪手命中率不变，第四个火枪手命中率分别修改为100%, 80%, 50%, 30%，结果为：</p>
+<p>100% 15.12 11.22 6.13 3.36 4.15 7.02 10.34 13.08 14.68 14.91</p>
+<p>80%  17.71 14.72 6.94 0.00 2.31 5.46 9.20 12.62 15.03 15.99</p>
+<p>50%   17.71 14.72 6.94 0.00 2.31 5.46 9.20 12.62 15.03 15.99</p>
+<p>30%   21.92 17.15 0.00 0.00 6.73 4.51 6.52 10.51 14.74 17.91</p>
+<p>非常有趣的发现，当第四个火枪手命中率下降到80%时，已经出现了悲剧，由于他太弱了，以致于在其他火枪手的最佳决策中，他被不知什么原因率先被秒（程序的计算结果，我暂时理解不了原因，但是结论应该是正确的）。更有趣的事情是，另外我们发现此时第三个火枪手幸存概率略微上升，第五个略微下降。 更令人称奇的是，当第四个火枪手命中率下降到30%时，第三个火枪手竟然被连累了，不知什么原因，他的幸存概率也降低至0！而此时第五个火枪手确略微逆袭了。 另外最大的收益者为第一个火枪手。 他的幸存概率大幅度提升！ what amazing!! </p>
+<p>看来在强手林立的战场，还是要自身够强啊，另外奇葩的是别人的水平变化会非常关系到你的生存！</p>
+<p>另外看看另一组数据：</p>
+<p>当所有人的命中率都是50%时，我们分别调整第一个火枪手的命中率从50%,60%,80%,100%</p>
+<p>50% 10.23 10.18 10.15 10.10 10.06 10.00 9.93 9.86 9.78 9.71</p>
+<p>60% 5.84 9.86 11.18 11.48 11.49 11.23 10.67 9.92 9.23 9.11</p>
+<p>80% 3.91 10.39 11.46 11.83 11.74 11.37 10.99 10.58 9.70 8.03</p>
+<p>100% 4.43 9.49 11.99 12.67 12.16 11.30 10.48 9.73 9.03 8.72</p>
+<p>啊哈，当所有人都为50%时，第一个火枪手是存在微弱优势的，但是当他的命中率“不幸”的上升到60%的时候，奇迹出现了，他的幸存概率突然下降了接近一半，仅为5.84%，而且随着其命中率提升，其幸存概率都在下降，仅仅在100%时，略微比80%好一些。 这个结论也违反了预期，即在大家都不是太强的时候，提升自己的命中率只会导致生存概率降低，正所谓枪打出头鸟？ </p>
+<p>那么，一个直观的猜想，是否第一个火枪手适当的降低自己的命中率，能否因为自己的低调而更容易幸存呢？ 话不多说，上结论：</p>
+<p>10% 0.39 11.48 11.06 11.63 11.53 11.21 10.84 10.54 10.67 10.65</p>
+<p>30% 2.29 11.16 10.88 11.34 11.24 10.96 10.65 10.41 10.53 10.54</p>
+<p>当第一个火枪手的命中率下降之后，其幸存几率更可怜了。 也就是说，在所有人都不强的时候，最好的生存方法，就是和其他人一样，所谓中庸，差不多就是这个道理？</p>
+<p>哈哈，这些实验的有趣之处就在于他常常得到违反常识的结论，而且我几次尝试一些猜想，结果实验数据总是给出令人诧异的结论，可能有人怀疑实验结果的正确性，但这点恰恰是我可以保证的，因为其原题为POJ3028。（timus上也有类似的题好像，但我想不起来了）</p>
+<p>这个问题应该还有很多料可以挖掘，之后争取补上图表分析。</p>
+<p>另外改进版的模型，比如决斗，也可以进行分析。</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/04/03/先下手真的为强吗？/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/04/03/infinite-data-structure-&-cantor-set/" >Infinite Data Structure &amp; Cantor Set</a>
+			<span class="date"> Apr 3 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p><img src="/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png" alt="Cantor Set"></p>
+<p>记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是MATRIX，就是为进程们编制了一个完美的虚拟世界。<br>所以无论是此时正在写博客的我，亦或是读者，都应该感谢操作系统。<br>然而，本文不是要歌颂或是讨论操作系统，只是引申开来，讲一些与之联系的思考。 这里我们要讨论的是处理无穷大的能力。 直截了当的说就是，函数式语言能够很好的刻画递归，此外数据结构本身也可以递归的定义，如果此时，这个函数式语言还支持Lazy Evaluation的特性，那么就为上层编程者提供了一种处理无穷的能力。<br>即你可以通过定义一个无限递归的数据结构，并对他进行运算。<br>举个例子来说，康托三分集是一个非常著名的分形结构。 由德国数学家康托与1883年引入，康托集构造很简单，初始为[0,1]的线段，然后每次对每个线段，从中去除中间三分之一的开区间，对左右两边三分之一各自递归直至无穷。 本文最上的图示就展示了康托集合每一步的划分。<br>康托集合有如下性质：<br>一、包含无穷多个点<br>二、不包含任何非零长度的线段<br>三、总长度为0<br>我们可以通过HASKELL用以下方式来定义康托集：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="code"><pre>import Data.Ratio
+data Cantor <span class="operator">a</span> = Vacant | Interval <span class="operator">a</span> <span class="operator">a</span> (Cantor <span class="operator">a</span>) (Cantor <span class="operator">a</span>) (Cantor <span class="operator">a</span>)
+getL (Interval <span class="operator">a</span> _ _ _ _) = <span class="operator">a</span>
+getR (Interval _ <span class="operator">a</span> _ _ _) = <span class="operator">a</span>
+ 
+buildCantor :: Ratio Integer -&gt; Ratio Integer -&gt; Cantor (Ratio Integer)
+buildCantor l r = (Interval l r) (buildCantor l ((r - l) / <span class="number">3</span> + l)) (Vacant) (buildCantor (r - (r - l) / <span class="number">3</span>) r)
+ 
+inCantor :: (Ord <span class="operator">a</span>) =&gt; (Cantor <span class="operator">a</span>) -&gt; <span class="operator">a</span> -&gt; Bool
+inCantor Vacant _ = False
+inCantor (Interval <span class="operator">a</span> b t1 t2 t3) (x) = (x &gt;= <span class="operator">a</span> &amp;&amp; x &lt;= b)
+ 
+findNumber :: Cantor (Ratio Integer) -&gt; Ratio Integer -&gt; String 
+findNumber (Interval <span class="operator">a</span> b t1 t2 t3) x 
+    | (inCantor t1 x) = <span class="string">"["</span> ++ (show <span class="operator">a</span>) ++ <span class="string">","</span> ++ (show $ getR t1) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t1 x)
+    | (inCantor t3 x) = <span class="string">"["</span> ++ (show $ getL t3) ++ <span class="string">","</span> ++ (show b) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t3 x)
+    | otherwise = <span class="string">"["</span> ++ (show $ getR t1) ++ <span class="string">","</span> ++ (show $ getL t3) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t2 x) 
+findNumber Vacant x = <span class="string">"Bingo!"</span>
+ 
+main = print (findNumber (buildCantor <span class="number">0</span> <span class="number">1</span>) (<span class="number">1</span> % <span class="number">10</span>))
+ 
+</pre></td></tr></table></figure>
+
+
+<p>首先定义数据结构Cantor，他本身要么是个空集，要么是左中右三段。<br>buildCantor函数构造了一个无限的康托集，我们使用Ratio Integer来表示有理数，他可以支持任意高精度。<br>接下来，我们实现findNumber函数在这个无限的结构中寻找一个点是否存在，如果一个点在某一层落入了Vacant，则他不在康托集中，那么我们可以得到输出其路径。<br>很多数都会很快Bingo.<br>例如：输入为12/17,输出为<br>“[2 % 3,1 % 1]=&gt;[2 % 3,7 % 9]=&gt;[19 % 27,20 % 27]=&gt;Bingo!”<br>输入为2/5，则<br>“[1 % 3,2 % 3]=&gt;Bingo!”<br>输入为1/10，看似简单，但<br>“[0 % 1,1 % 3]=&gt;[0 % 1,1 % 9]=&gt;[2 % 27,1 % 9]=&gt;[8 % 81,1 % 9]=&gt;[8 % 81,25 % 243]=&gt;[8 % 81,73 % 729]=&gt;[218 % 2187,73 % 729]=&gt;[656 % 6561,73 % 729]=&gt;[656 % 6561,1969 % 19683]=&gt;[656 % 6561,5905 % 59049]。。。。。。<br>程序在内存耗尽前将永远无法结束，这个点存在于康托集中，但永远找不到他属于那个区间，因为康托集不包含任何非零长度的线段。<br>这个程序的魅力在于我们有能力去刻画这个无限集合，同时，在构造时，不需要事先指定构造层数之类的细节。 由于lazy特性，只要当需要时，我们才会去展开需要的分支，所以无需担心无限的结构一开始耗尽内存。 这个判断程序一个while循环在任何语言中都能实现，但这样的实现方式还是有其独特意义的，因为我们首先定义并构造了这个无限集合，之后我们再对齐运算。 而while的判断实现实际上并没有得到这个集合。</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/04/03/infinite-data-structure-&-cantor-set/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/04/03/cellular-automata/" >Cellular Automata</a>
+			<span class="date"> Apr 3 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
+<p>现在看来，整个图形经过反复迭代，呈现了复杂性，当时这个代码是有些模仿曼德勃罗集的，即使反复迭代迭代，然后看迭代之后的值在那个区间范围，然后涂上不同的颜色即可。 当然能产生这样的效果，多少是运气的成分。<br>不管怎么说，这是自己曾经的一种探索。<br>今天突然又回想起了这些碎片，想到了生命游戏之类的简单却又异常复杂的结构。 特别是想到之前看到了《银河系漫游指南》 其中讲到，the answer to the universe is 42. Why 42? 电影呈现了一个非常搞笑的梗，即使一台能够计算一切的超级人工智能计算机经过计算最后得出了宇宙的终极答案：42。 当时，电影中的所有人都崩溃了，不知道这是什么。 但是计算机很确信，嗯，确实是42.<br>今天这篇日志，在扯淡的同时想要表达一种思考，answer is 42究竟有没有意义？ 我们从细胞自动机来讲起，<br>细胞自动机的实现非常简单，整个空间是一个二维网格，每个网格要么是1，要么是0。 一开始第一行除了最中间的网格为1，其余都为0，然后整个生命开始一行一行迭代，每一行的值依赖于上一行的结果。 其迭代规则由一个表格决定：<br>current pattern                     111    110    101    100    011    010    001    000<br>new state for center cell         0     0     0     1     1     1     1     0<br>每一格的值由上一行的三个值来决定，比如表格中上一行相邻三个值为111，则下一行中间那个值即为0. 如果上一行相邻三个值为011，则下一行那个值为1. 整个自动机的规则其实就由第二行的八个bit决定，所以一个细胞自动机可以用一个0-255的整数来表示。</p>
+<p><img src="/images/f863a7bf19ee143ea0b5c537102e510293b98668.png" alt="例子"><br><img src="/images/d531240e7f388be5271a7137c94d617a14bebbab.png" alt="例子"><br><img src="/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png" alt="例子"><br><img src="/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png" alt="例子"></p>
+<p>上面列举了不同编号的图案，编号为0，15的都比较简单。 编号为18的出现了分形图案，编号为30的最特殊，其分形图案下还有着一定的随机性，即出现了Chaos。 我们可以想想，假设我们在细胞自动机产生的图样中生活，那么不同编号自动机就会产生不同的宇宙，其中有些宇宙比较简单，非常枯燥。 有些宇宙中会产生规则的秩序（例如编号18），有些宇宙中会产生无序，继而产生无穷的复杂性（例如智慧生命，我们所处的宇宙）。 也就是说，尽管这些宇宙的原理是一致的，但是由于内部编码的不同，将会呈现完全不同的面貌。 而我们所处的宇宙，必然不是一个简单枯燥的宇宙（有些宇宙由于规则不好，只有一条直线，或者全部是空白，而我们的宇宙精彩纷呈，对应了编号30）。 所以这就理解了，如果你生活在编号为30的宇宙中，如果存在上帝，上帝会告诉你，the answer to the universe is 30. 因为上帝设计了这个宇宙机器和初始条件，所以答案的意思就是告诉你，你这个宇宙的初始条件，即对应细胞自动机中的初始编码。<br>最后，再贴几张图：</p>
+<p><img src="/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png" alt="例子"></p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/04/03/cellular-automata/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/04/03/废话有信息量吗？/" >废话有信息量吗？</a>
+			<span class="date"> Apr 3 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>有一个智力题，很多人都曾见过，这个故事有很多版本，比如邻居杀狗版本、丈夫外遇版本等等，但最为精彩悬疑的，恐怕是下面这个版本：<br>在一个孤岛上生活着一群朝夕相处的土著人，他们有些是红眼睛、有些是蓝眼睛。这群土著人都信仰一个神圣的宗教，这个宗教有以下三个教条：<br>一、任何人都不能在任何时候看自己的眼睛（例如看水面倒影、看别人眼中的自己等）。<br>二、任何人不能评论、交流任何人眼睛的颜色。<br>三、任何人如果确信自己眼睛是红色的，则必须在当天深夜0点自杀。<br>这群土著人将这三条信仰视为比自己生命更重要的信念。任何时候他们都不会违反。<br>有一天，这个小岛上来了一个外国游客，他不知道土著人的信仰和宗教，于是他在所有土著人共同出现并招待他的晚宴上，若无其事的说道，咦，你们中间有红眼睛的人啊。于是，第五天夜里，有部分土著人自杀了，问发生了什么。<br>首先，我们分析问题，可以得出以下引理：<br>一、所有红色眼睛的人都会在同一天发现自己是红眼睛。 （因为所有红眼睛所看到的世界是一致的，所以也会得出同样的推理）<br>二、所有红色眼睛的人都会在同一天死去（根据引理一推出）<br>三、所有蓝色眼睛的人都会在同一天知道自己是蓝眼睛，并且是在红眼睛死后的那天。 （根据引理二）<br>根据引理，这个问题的推理过程是这样的，假设这群土著人中只有一个红眼睛，那么很显然，他看到的所有其他人都是蓝眼睛，所以他当天晚上必定自杀。 如果第一天夜里，没有人自杀，说明红眼睛的人&gt;=2个。 第二天，然后，假设你是这两个人中的一个，你会发现你只能看到一个红眼睛人，而红眼睛的人&gt;=2个，所以我肯定是红眼睛的，自杀。 依次类推，假设岛上有N个红眼睛的人，那么这N个红眼睛的人会同时在第N天晚上自杀。</p>
+<p>最有趣但是恐怖的问题出现了，<br>问题是：假设岛上有五个红眼睛，那么每个人都会看到岛上有红眼睛的人这个事实。这个时候，一个有趣悖论问题出现了，每个土著人一开始都知道岛上存在红眼睛，那么，游客说的那句话，其实是废话，游客说：“咦，你们中有红眼睛哎”，这句话其实没有带来任何信息量。 问题是，为什么这句话说完之后，会出现第五天晚上自杀的情况呢，而不是在之前的某一天就出现了呢？<br>换句话说，这个故事应该有另外一个版本，也就是说，游客说完话之后，什么都没发生。<br>这个悖论非常值得思考，我们来试着分析一下：<br>一、岛上只有一个红眼睛。<br>这个时候对于红眼睛来说，他看到的世界和别人是不一样的，他看不到红眼睛。所以，如果此时来了一个游客，说，咦，岛上有红眼睛，那么对于这个人来说，打击是毁灭性的。 所以，一个红眼睛，游客意义重大。<br>二、岛上两个红眼睛<br>这个时候对于每个人，都能看到至少一个红眼睛，照理来说，两个红眼睛会在第二天自杀，但问题是，这些土著人不是同时诞生的，他们之间没有同步和对于互相所了解的历史知识的了解。 所谓的第二天，对于他们来说没有同步性。 比如说，两个红眼睛分别是A, B。 A 看到的世界里有一个红眼睛，他不能确定自己就是红眼睛，他可以是蓝眼睛啊，而且对于A眼中的B来说，B可以看到周围全是蓝眼睛，从而B也可以认为自己也是蓝眼睛。 当然，B也可以看到和A同样的想法，因为B看到的世界对于A来说不知道。 同理也是如此。<br>即这个时候的关键问题在于，所有人都知道岛上至少有个红眼睛，但是，所有人都不知道所有人都知道这个事实。<br>也就是说，我们认为岛上至少有个红眼睛是一个知识。 目前的情况就是，所有人都知道这个知识，但是“所有人都知道这个知识”本身所有人并不知道。<br>所有人都知道这个知识 本身也是一个知识，我们可以把它成为高阶知识，所以，如果此时岛上来了一个人，他说咦，他会带来两个知识：<br>一： 这个知识本身，即岛上有红眼睛（这个大家已经都知道了）<br>二： 高阶知识，即“这个知识所有人都知道”，已经被所有人知道了。<br>他说话之后，岛上相当于重新进行了一次知识整理，并且所有人进行了同步，如此，推理就可以按照故事之前的解法来进行推理了。<br>比这个高阶知识更关键的是，游客带来的同步性，即所有人从当天晚上开始一起推理，事实上，即使游客没有带来这个高阶知识，所有土著人也会在第二天推理出N&gt;=2，即他们本身可以推理出这个知识。<br>三、岛上有三个人<br>此时，尽管岛上有红眼睛这个知识所有人都知道，且由于每个人都能看到至少两个红眼睛，所以，岛上所有人都知道有红眼睛这个知识，也被所有人知道，但是，仍然存在差异，对于蓝眼睛的，他的知识为岛上至少存在三个红眼睛。 对于红眼睛来说，他的知识为岛上至少存在两个红眼睛，且他甚至可以认为其他人只知道岛上只存在一个红眼睛。 所有，所有人对于知识的理解，和所有人对于其他人对于知识的理解都是混乱的。<br>而游客的作用，是帮助所有人在不交流的情况下，从新构建统一的知识库。 所以他带来的不是废话，而是信息量。</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/04/03/废话有信息量吗？/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/04/02/hello-world/" >Hello World</a>
+			<span class="date"> Apr 2 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>Welcome to <a href="http://zespia.tw/hexo" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs" target="_blank">documentation</a> to learn how to use.</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/04/02/hello-world/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  </div>
+	  <div>
+	  <center>
+	  <div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+	  </center>
+	  </div>
+	  
+	  
+
+</div> <!-- col-md-9/col-md-12 -->
+
+
+<div class="col-md-3">
+	<div id="sidebar">
+	
+			<div class="form-group has-success has-feedback">
+  <form action="//google.com/search" method="get" accept-charset="utf-8" >
+    <input type="search" name="q" results="0" placeholder="Search" class="form-control">
+    <input type="hidden" name="q" value="site:www.pigoneand.info">	
+  </form>
+</div>
+
+		
+			
+		
+			
+
+		
+			
+<div class="widget">
+  <h4>Recent Posts</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2014/04/03/先下手真的为强吗？/" ><i class="fa fa-file-o"></i>先下手真的为强吗？</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/03/infinite-data-structure-&amp;-cantor-set/" ><i class="fa fa-file-o"></i>Infinite Data Structure &amp; C...</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/03/cellular-automata/" ><i class="fa fa-file-o"></i>Cellular Automata</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/03/废话有信息量吗？/" ><i class="fa fa-file-o"></i>废话有信息量吗？</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/02/hello-world/" ><i class="fa fa-file-o"></i>Hello World</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github"></i><a href="http://www.github.com/pigoneand" title="My Github account." target="_blank"]);">My Github</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2014 Yihe Zhu
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+   </html>
