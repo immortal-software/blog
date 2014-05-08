@@ -82,6 +82,67 @@
 	
 	<!-- display as entry -->
 		<h3 class="title">
+			<a href="/2014/05/07/金色对角线/" >金色对角线</a>
+			<span class="date"> May 7 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>今天整理一下John Hopcroft在开学前几天课程的内容——康托对角线方法。康托对角线与其说是一种构造矛盾和反例的方法，不如说是一种最纯粹、美妙的数学思想，所谓大道至简，大音希声，大象无形，大巧不工，大智若愚。(orz)。。。。<br>近代人类在数学上的思维成长，大抵是通过对无穷这个概念的反复研究和探讨得以体现的。谈到对角线方法，就不得不提到无穷。John关于对角线方法，首先也是从最最经典的关于无理数不可数的证明开始的。<br>首先，我们知道，自然数是可数无穷的，所谓可数无穷，就是说能够通过一种方法，把自然数一个一个的列举出来，做到不重不漏。我们最喜闻乐见的形式，就是通过数数的方法，来数，1，2，3，4，5，6，7，… 对于任何一个我们想要的自然数x，总是能够在有限步内数到这个数（尽管自然数集合是无穷的，但是你一旦指定了其中的某个数，他却是有限的。）<br>无穷，无穷，仔细想想其实有些可怕。我们常说永远，永恒，永垂不朽，但是，生活告诉我们，没有什么是永垂不朽的（好像偏题了）。如果你真要追求永恒的真理和美，那就去学数学吧。可数无穷的概念我们都容易理解，接下来，妖怪来了——不可数无穷。 就是说一种不能够数的无穷，我们众所周知的——无理数就是其中一只。中文其实是一门深奥的语言，仔细品味，你会发现很多趣味，比如，有理数和无理数，摆明了就是告诉你，前者很萌，后者不好惹，他不讲道理。最早接触无理数，我相信大多数同学都是通过一个数学家跳河的故事开始的（不了解的就不用了解这个悲情故事了）。所以，无理数从小在我心中就不是什么伟大光辉的形象（扯远了）。<br>言归正传，我们来看看伟大的康托的对角线法则是如何证明实数不可数，首先我们，反证：假设实数可数。也就是说存在一种方法，能够将实数一个一个的列举出来，不重不漏（很关键）。<br>那么我们就不客气，既然存在方法，那就列出来吧（流氓都是这么开始耍的）。</p>
+<p><img src="/images/133012fd240d3687740836eaaac3181d297692e4.png" alt="例子"></p>
+<p>假设我们能够将[0,1]之间的实数一个一个的列举出来，那么我们就能够得到一张表，表的每一行是一个实数，每一列表示小数点后第几位上的数字是多少。比如表中第一行我们的实数是0.00000… ，第二行是0.50000000..当然这个表的行数和列数都是无限的，卑微的我们仅仅列了一个表格的左上角。<br>好了，现在我们注意到，我们有了一条对角线！对角线！<br>好吧，我承认我还是什么都没有想到，不知道康托是如何想出对角线的，现在我们观察这条棕色对角线（表格中加粗了），每个格子表示第i个实数小数点后第i个数字是神马。好的，我们通过这条对角线构造一个新的实数——P。并且保证P的小数点后第i位的数字和对角线上第i个数字不同。</p>
+<p><img src="/images/49939e3f23350cfaa771d718efc0b8d1a5462a80.png" alt="例子"></p>
+<p>要和对角线上第i位不同其实非常简单，我们的选择很多，比如，我们可以构造P=0.11411……。最简单，我们令Pi = (Di + 1) % 10（D表示对角线）。注意，这个时候我们得到了一个新的数——P。P有什么特性呢，我们先停一停，看看我们要证明什么——实数不可数无穷，我们现在在哪里，我们现在假定实数可数，我们在用反证法——天呢，那我们要干什么？我们要证明如果存在这么一个表格，他有矛盾——他能有什么矛盾，这个表格这么完美，有矛盾，我们看看可数的性质——不重不漏，不重不漏，他漏了！他漏了！？<br>是的，他漏了，我们利用对角线得到了一个新的实数P，下面是一个伟大的发现，P和表中的每个实数都不同！都不同啊亲，为什么呢？因为他和对角线的每个数字不同，那么对于第i个实数来说，他们至少在小数点后第i位不同。所以P这个东西，不在表中，等等，这样就矛盾了，实数是可数就矛盾了，矛盾了。。。<br>所以，实数是不可数，不可数无穷。<br>问题：同样的方法是否能够证明有理数是不可数无穷的？答案肯定是不行，但是为什么。<br>内容太多，一天写不完。下次继续John的课程记录，内容提要：<br>1、计算机程序总数是可数无穷的。<br>2、对角线方法证明存在不可计算的函数。<br>3、证明图灵停机程序不存在。<br>4、哥德尔不完备定理。</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/05/07/金色对角线/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
+			<a href="/2014/05/07/zero-knowledge-proof/" >Zero Knowledge Proof</a>
+			<span class="date"> May 7 2014 </span>
+		</h3>
+	
+
+
+	  <div class="entry">
+  <div class="row">
+  
+	<div class="col-md-12">
+	  
+	
+	  <p>这个学期临近结束，一个非常振奋人心的消息就是，图灵奖得主 John Hopcroft 放弃圣诞休假来我校进行为期15天的授课——面向计算机科学的数学基础I，课程主页：<a href="http://zhiyuan.sjtu.edu.cn/course/mathcs.htm" target="_blank">http://zhiyuan.sjtu.edu.cn/course/mathcs.htm</a>  自己很荣幸能够作为助教之一参与其中和同学们一起感受大师风采，一起学习数学。<br>今天已经是授课的第三天，John的课程内容已经涉及了计算机学科中几乎所有领域，包括，集合论，算法，数据结构，复杂性理论，图灵停机问题，哥德尔不完备定理，图论，数学归纳法，反证法，非构造性证明，零知识证明，密码学，长尾理论等等。其涉及内容之广，涵盖内容之丰富，令人咋舌。更令人钦佩的是，大师总能够将深奥复杂的理论用最浅显易懂的方式娓娓道来，顺着他的思路，你不会感到理解上有太大的困难，短短半个小时，一个复杂的问题就这样被解释清楚了。 当然，时间有限，课程所涉及的往往都是某个领域的核心思想，不可能将太多的细节和严格的数学推到，John更多的也是想带给我们更多的对整个计算机学科的总体性认识。<br>如果有时间，我将尽可能多整理一些课程笔记，并写一些心得体会，分享给大家。 如果有不对之处，希望大家多多指正。<br>前两天十分精彩的就是John关于图灵停机问题和哥德尔不完备定义证明的方法，这个放到下次再进行整理。 今天John主要讲了零知识证明问题，趁热打铁，我抓紧回顾并写下来。<br>什么是零知识证明呢？ 零知识证明其实是一个非常实用的东西。比如，举个栗子，某个研究生maple突然神猛发明了哈密尔顿回路问题的多项式算法，这必将是一个能够获得图灵奖的神人，他的论文已经写完了，但是问题是，他的论文想要发表，必须先让审稿人审稿，那如果某个审稿人突然起了歹心，他将论文的思想据为己有，放下这篇稿件，另外写了一篇文章发表，再加上他是这个领域的大牛，那么图灵奖就非他莫属了。等到maple发现这个问题，他也很难辩解。因为审稿人可以声称他是在看到这篇文章之前就想到了这个算法。到时候，真是公说公有理，婆说婆有理，谁也难分真假。<br>如果maple知道零知识证明的相关概念，那他就不必遭受这个痛苦了。 我们设想，如果存在一种机制，使得这个研究生可以向全世界宣布，他找到了哈密尔顿回路问题的多项式算法，并且，他不用透露关于这个算法的任何细节，他就能够向全世界证明确实他掌握了这个算法。那么，关于这个算法的发现权问题，就变得毫无争议了。问题是，存不存在这样的机制呢？<br>对于这个问题来说，答案是肯定的，我们知道，找哈密尔顿回路如果没有多项式算法，将是非常困难的，而如果找到了一条回路，验证他是否正确的代价仅仅只是多项式的。所以，maple如果手里有多项式算法，他就可以直接向全世界公开征集问题，比如甲随机生成一个图，顶点规模非常大（例如N&gt;=1000000),他将这个图发给maple，然后maple利用他的算法，仅仅1分钟就找到了哈密尔顿回路。 他将这个可行解发回甲，甲也可以瞬间验证maple解答正确性。并且甲知道，如果这个maple手里没有多项式算法，是几乎不可能在这么短时间内找到解的，那么他将相信maple说的是真的。所有人，都可以这么来质疑maple，经过大规模的测试，如果maple仍然能够顶住压力，那么maple掌握这个算法将成为事实。<br>这就是零知识证明的一个基本场景，John在课程中，另外举了一个大家熟悉的例子，那就是数独问题。</p>
+<p>我们假设这次maple变成了数独达人，他总是很快解出一个很难的数独谜题。maple有个好朋友pig，有一天，maple和pig一起在做一道数独难题，pig比较笨，怎么都做不出来，但是maple很快做出来了，他想向pig证明他已经找到了解，但是他不想让pig知道关于解的具体信息和提示，免得pig将这个答案算出来，到时候他也去外面炫耀他是数独达人了。 但问题是，maple有办法向pig证明他能够解出这个谜题同时又不泄露给pig任何关于题目解答的信息吗？<br>这个问题比上面的问题更复杂一些，因为之前的哈密尔顿回路问题，只需要验证maple给出的解是否合理就可以了。 但现在数独问题更复杂，因为maple不想让pig知道解是什么，但他仍然想让pig相信他解出了这个问题？这个目的可行吗？<br>乍看起来，这似乎不太可能做到，但是John讲了一个非常精妙的方法：首先，maple制作写着1-9数字的纸片各9张。然后准备一张空白的9<em>9的棋盘。maple首先毫不费力的算出这道数独问题的解，然后对于每个格子，如果数独问题初始就给定了这个格子一个数，那么maple就直接选择相应数字的纸片，面朝上，放在这个格子。如果这个格子是空白，那么maple就选择相应答案的数字，面朝下，放在这个格子。放完之后，可以直接给pig看。 这时pig不会看到任何关于答案的信息。<br>随后，maple让pig任意选择一行、或者一列或者一个3</em>3的方格，就是pig认为需要验证的地方。紧接着，maple当着pig的面，将对应一行、或者一列、或者3<em>3的方格中的9个纸片拿出来，放在桌面上，任意打乱他们的顺序。随后他把这9张纸片全部面朝上摊开，这时pig可以验证，这里面是不是每个数字都出现一次。 注意到，这个时候，pig就能够验证这一行或者一列或者一个3</em>3方格的正确性（同时他不会获得任何额外的信息，因为他不知道原来打乱之前是怎么放的）。 这样pig就进行了一次验证。<br>一次验证说明不了问题，但是maple可以收回纸片，背着pig重新摆好，并让pig重新进行一次验证。经过大量验证之后，如果maple每次都通过了验证，那么可以证明maple解出这道的概率接近1。 事实上，我们可以进行如下计算：假设maple并没有解出这个数独，只是随便排列了一下，那么至少有一行、或者一列、或者一个3<em>3方格中的9个数是不满足条件的。 假设仅仅只有一行不满足条件。 pig在验证时总共有9</em>3中选法。其中没有选到这个有问题行的概率为26/27。 经过N次实验，都没有选到这个问题行的概率为 (26/27)^N -&gt; 0。 所以经过大量实验之后，可以几乎确定maple获得了一种正确的解法。</p>
+<p>图3染色问题<br>John接下来又举了一个栗子——图的三染色问题。对于任意图，我们要将这个图的顶点进行3着色，使得任意一条边链接的两个点的颜色不同。<br>这个问题已经被证明是NPC的。 计算一个图的三染色方案需要大量的计算资源。假设现在某公司总裁Tony需要解决一个规模巨大有10^6个顶点的图的一个3着色方案，这个方案如果被找到，将极大增加公司收益。 但Tony本身对这个算法不了解，他知道市面上有另一家公司SuperTomato具有行业内最好的图染色算法，他想让SuperTomato公司帮忙跑出一个可行方案（SuperTomato肯定不会转让算法滴，他提供的服务就是帮助你跑出一个染色方案）。 问题是，双方都不是十分信任对方——tony怀疑tomato公司是否有能力给出一个方案，tomato公司生怕一旦辛辛苦苦算出了可行方案，结果透露了方案细节给tony之后，tony就不需要再花钱购买方案了。</p>
+<p>这就再次需要零知识证明来解决这个问题，关键在于如何向对方证明，自己已经给出了这个问题的一个染色方案，使得对方能够相信，同时我不会透露任何方案的细节。 这个数独问题一样，又是一个看似不可能完成的任务。<br>可喜的是SuperTomato公司最终给出了一种零知识证明的方案。 方案是这样的，首先Tomato公司算出一个方案，对于每个顶点染red, blue, green三种颜色之一，并且任意一条边链接的两个点的颜色不同。 接下来，对于每个顶点的染色结果，tomato公司利用任意一种加密算法（加密算法本身是公开的），用不同的秘钥对每个顶点的颜色进行加密。这样就得到了一个加密之后的染色方案，每个顶点只是一个毫无意义的字符串序列。将这个图发给tony公司。<br>tony公司拿到这个图，他是没有任何办法知道颜色方法究竟是什么。 然后就是激动人心的验证过程。tony公司可以任意选择两个顶点（不同但通过一条边相邻），向tomato公司发出质疑，tomato公司仅仅将这两个顶点的解密秘钥，发给tony，tony利用这两个秘钥，对这两个顶点的染色信息进行解密，这样他就可以验证这两个顶点的颜色是否相同。（注意到每个顶点的加密密码不同，所以tony无法利用这两个秘钥解出其他结点的信息）。<br>这样，tony就完成了一次验证操作。 注意到此时tony仍然没有得到关于染色方案的具体细节，因为他此时只验证了两个相邻顶点，对于任何一个正确的染色方案，相邻顶点总是不同颜色的，tony知道他们具体是什么颜色是没用的。因为关键在于在下一次验证之前，Tomato公司会对顶点染色方案进行一次随机的染色名称置换，同时更改所有的秘钥重新加密一次，再将整个图重新发给tony做下一次验证。这样尽管开销比较大，但是能够保证没有任何额外信息泄露。<br>同数独一样，我们可以计算出假设tomato公司瞎蒙了一种不合法的染色方案，则图中至少有一条边将通不过验证，假设只有一条边，那么通过一次测试的概率为(M-1)/M (M为边的个数） 试验M次，都蒙混过测试的概率为<br>(1 – 1/M)^M 约等于 (1/e) 。如果试验 M <em> 1000次，其混过测试的概率将为 (1/e)^1000 -&gt; 0。<br>所以这个方案也是可行的。<br>顺着这个思路，我们对哈密尔顿回路问题做一下新的阐述，这也是今天John在课程一开始重新讲的一个问题。最早我们要解决的是证明maple同学已经发现了一个多项式的哈密尔顿回路算法，但是他不想透露任何算法的细节。 故事还在继续，后来charlene同学经过苦思冥想终于在一个满月之夜，独自发现了哈密尔顿回路多项式算法，这是多么神奇！ 后来charlene同学也开了一家公司，专门替别人计算哈密尔顿回路方案（似乎这和tomatoSmith公司如出一辙，都是卖艺不卖身的高科技买卖，你懂得）。好吧，故事总需要另外一个客户来掺和，Teacher Pan 最近出版了他新的三体语言版自传(orz)。 Teacher Pan通晓银河系每个星球的位置和情况，但是他想找到一个联通银河系所有恒星的一个哈密尔顿回路，用来作为他自传封面的插图。<br>于是他们遇到了同样的情况，双方都不是很信任，Pan质疑charlene公司是否有能力计算出这么大规模图的哈密尔顿回路，charlene生怕一旦将回路发给Pan，Pan可能不给钱了。好吧，那有木有办法让Pan不知道任何哈密尔顿回路具体是怎么构造的前提下， 确信charlene已经计算出了一个正确的哈密尔顿回路呢？<br>似乎这个问题比刚才的3染色问题还要复杂，复杂之处在于，3染色的验证通过一系列加密算法能够隐藏信息，同时验证相对而言比较简单。但是哈密尔顿回路，OMG，这个要验证必须要验证整个回路才行。。。 给你一条边没用啊。。。。。<br>当然，零知识证明的方案还是存在的。只是比之前的更为复杂一些。首先Charlene计算出一个哈密尔顿回路，这个没有问题，然后他对整张图的顶点首先进行一次加密，比如原来顶点是{1,2,3}，他利用某种加密算法，利用同一个秘钥将其加密成{#@@@@#@,233874,&amp;</em>&amp;#*}三个恶心的字符串。 对于原图中的每条边，原来比如说是(1,2)这条边，现在就用(#@@@@#a, 233874)来表示。 Charlene将整个加密之后的图发给Pan。 此外， 对于原图中的哈密尔顿回路，现在也变成了一条加密之后的顶点序列。 对这个序列，Charlene再进行一次额外的加密。 将这个加密之后的序列也发给Pan。<br>我们来看看Pan手里现在有些什么，首先，我们假定Charlene在这过程中没有任何欺骗。 那么Pan首先得到了一张与原来他发给Pan的原图所同构的图G’（因为所有的顶点名称已经变换了，Pan想要从G’找到与原图G的顶点对应关系是非常困难的（有可能图同构也是NPC问题，至少也是一个非常难的问题）。 另外Pan得到了一个礼物——也就是那个加密之后的哈密尔顿序列，但他也没有解密的密码（注意到他即使得到了密码，他也只能还原出G’上的一条哈密尔顿回路）<br>好了，现在Pan又到了选择的时刻，他有两种不同的选择（这是一个全新的想法）：<br>1、选择问Charlene要G-&gt;G’的顶点置换方案，这样他可能验证Charlene确实将原图的某个同构图发给了Pan。<br>2、选择问Charlene要哈密尔顿序列的解密秘钥，这样他可以验证Charlene是否在同构图G’上找到了一条哈密尔顿序列。<br>注意！！！！！Pan只能选择一个询问Charlene。（如果两个答案都被Pan知晓，那么答案就保不住了）<br>精彩之处在于，Charlene如果是个骗子，他要么在1上欺骗了Pan，要么在2上欺骗了Pan，要么同时在1,2上欺骗了Pan（这种情况最好判断）。 假设Charlene仅仅在1上做了手脚，也就是他把原图G稍微修改了一下下，从而很容易的找到了一条哈密尔顿回路，但是G’和G其实是不同构的。那么Pan将有1/2的概率抓出Charlene在作弊。所以在N次验证之后，Charlene没被抓到作弊的概率将为(1/2)^N -&gt; 0。</p>
+
+	
+	</div>
+	
+  
+</div>
+	<a type="button" href="/2014/05/07/zero-knowledge-proof/#more" class="btn btn-default more">Read More</a>
+</div>
+	  
+	  
+	  
+	
+	<!-- display as entry -->
+		<h3 class="title">
 			<a href="/2014/05/07/monad/" >Monad</a>
 			<span class="date"> May 7 2014 </span>
 		</h3>
@@ -127,44 +188,38 @@
 30
 31
 32
-33
-34
-35
-</pre></td><td class="code"><pre><span class="import"><span class="keyword">import</span> Data.List</span>
- 
- main = print answer
- 
- <span class="typedef"><span class="keyword">data</span> <span class="type">Dist</span> a = <span class="type">Dist</span> <span class="container">{ <span class="title">unD</span> :: [(<span class="title">a</span>, <span class="type">Double</span>)] }</span> <span class="keyword">deriving</span> <span class="container">(<span class="type">Show</span>, <span class="type">Eq</span>, <span class="type">Read</span>)</span></span>
- <span class="typedef"><span class="keyword">type</span> <span class="type">Event</span> a = <span class="container">(<span class="title">a</span> -&gt; <span class="type">Bool</span>)</span></span>
- 
- <span class="comment">-- get a uniform distribution from list of element</span>
- uniform :: [a] -&gt; <span class="type">Dist</span> a
- uniform xs = <span class="type">Dist</span> (map (\a -&gt; (a, <span class="number">1.0</span> / l)) xs) <span class="keyword">where</span>
-     l = fromIntegral $ length xs
- 
- <span class="comment">-- get event happen probability</span>
- getEventProb :: (<span class="type">Dist</span> a) -&gt; (<span class="type">Event</span> a) -&gt; <span class="type">Double</span>
- getEventProb d event = (sum . (map snd) . filter (event . fst) . unD $ d) / 
-        (sum . (map snd) . unD $ d)
- 
- <span class="comment">-- normalize a distribution</span>
- normalize :: (<span class="type">Ord</span> a, <span class="type">Eq</span> a) =&gt; (<span class="type">Dist</span> a) -&gt; (<span class="type">Dist</span> a)
- normalize d = <span class="type">Dist</span> [(x, getEventProb d (==x)) | x &lt;- (nub . sort . map fst) $ unD d]
- 
- <span class="comment">-- monad</span>
-<span class="class"> <span class="keyword">instance</span> <span class="type">Monad</span> <span class="type">Dist</span> <span class="keyword">where</span></span>
-     return x = <span class="type">Dist</span> [(x, <span class="number">1</span>)]
-     (<span class="type">Dist</span> d) &gt;&gt;= f = <span class="type">Dist</span> [ (y, p * q) | (x, p) &lt;- d, (y, q) &lt;- unD (f x) ]
- 
- <span class="comment">-- move function, transition function</span>
- move :: <span class="type">String</span> -&gt; <span class="type">Dist</span> <span class="type">String</span>
- move <span class="string">"Head"</span> = uniform [<span class="string">"Head"</span>, <span class="string">"Tail"</span>]
- move <span class="string">"Tail"</span> = uniform [<span class="string">"Tail"</span>]
- 
- <span class="comment">-- example</span>
- move2 = uniform [<span class="string">"Head"</span>] &gt;&gt;= move &gt;&gt;= move
- answer = normalize move2
- 
+</pre></td><td class="code"><pre><span class="typedef"><span class="keyword">data</span> <span class="type">Dist</span> a = <span class="type">Dist</span> <span class="container">{ <span class="title">unD</span> :: [(<span class="title">a</span>, <span class="type">Double</span>)] }</span> <span class="keyword">deriving</span> <span class="container">(<span class="type">Show</span>, <span class="type">Eq</span>, <span class="type">Read</span>)</span></span>
+<span class="typedef"><span class="keyword">type</span> <span class="type">Event</span> a = <span class="container">(<span class="title">a</span> -&gt; <span class="type">Bool</span>)</span></span>
+
+<span class="comment">-- get a uniform distribution from list of element</span>
+<span class="title">uniform</span> :: [a] -&gt; <span class="type">Dist</span> a
+<span class="title">uniform</span> xs = <span class="type">Dist</span> (map (\a -&gt; (a, <span class="number">1.0</span> / l)) xs) <span class="keyword">where</span>
+    l = fromIntegral $ length xs
+
+<span class="comment">-- get event happen probability</span>
+<span class="title">getEventProb</span> :: (<span class="type">Dist</span> a) -&gt; (<span class="type">Event</span> a) -&gt; <span class="type">Double</span>
+<span class="title">getEventProb</span> d event = (sum . (map snd) . filter (event . fst) . unD $ d) / 
+    (sum . (map snd) . unD $ d)
+
+<span class="comment">-- normalize a distribution</span>
+<span class="title">normalize</span> :: (<span class="type">Ord</span> a, <span class="type">Eq</span> a) =&gt; (<span class="type">Dist</span> a) -&gt; (<span class="type">Dist</span> a)
+<span class="title">normalize</span> d = <span class="type">Dist</span> [(x, getEventProb d (==x)) | x &lt;- (nub . sort . map fst) $ unD d]
+
+<span class="comment">-- monad</span>
+<span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> <span class="type">Dist</span> <span class="keyword">where</span></span>
+    return x = <span class="type">Dist</span> [(x, <span class="number">1</span>)]
+    (<span class="type">Dist</span> d) &gt;&gt;= f = <span class="type">Dist</span> [ (y, p * q) | (x, p) &lt;- d, (y, q) &lt;- unD (f x) ]
+
+<span class="comment">-- move function, transition function</span>
+<span class="title">move</span> :: <span class="type">String</span> -&gt; <span class="type">Dist</span> <span class="type">String</span>
+<span class="title">move</span> <span class="string">"Head"</span> = uniform [<span class="string">"Head"</span>, <span class="string">"Tail"</span>]
+<span class="title">move</span> <span class="string">"Tail"</span> = uniform [<span class="string">"Tail"</span>]
+
+<span class="comment">-- example</span>
+<span class="title">move2</span> = uniform [<span class="string">"Head"</span>] &gt;&gt;= move &gt;&gt;= move
+<span class="title">answer</span> = normalize move2
+
+<span class="title">main</span> = print answer
 </pre></td></tr></table></figure>
 
 
@@ -587,6 +642,14 @@ main = print (findNumber (buildCantor <span class="number">0</span> <span class=
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2014/05/07/金色对角线/" ><i class="fa fa-file-o"></i>金色对角线</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/07/zero-knowledge-proof/" ><i class="fa fa-file-o"></i>Zero Knowledge Proof</a>
+      </li>
+    
+      <li>
         <a href="/2014/05/07/monad/" ><i class="fa fa-file-o"></i>Monad</a>
       </li>
     
@@ -596,14 +659,6 @@ main = print (findNumber (buildCantor <span class="number">0</span> <span class=
     
       <li>
         <a href="/2014/04/03/先下手真的为强吗？/" ><i class="fa fa-file-o"></i>先下手真的为强吗？</a>
-      </li>
-    
-      <li>
-        <a href="/2014/04/03/infinite-data-structure-&amp;-cantor-set/" ><i class="fa fa-file-o"></i>Infinite Data Structure &amp; C...</a>
-      </li>
-    
-      <li>
-        <a href="/2014/04/03/cellular-automata/" ><i class="fa fa-file-o"></i>Cellular Automata</a>
       </li>
     
   </ul>

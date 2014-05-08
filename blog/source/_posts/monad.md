@@ -4,42 +4,43 @@ tags:
 ---
 这个系列的第二篇文章，上次讨论了Pearls of Functional Algorithm Design这本书以及他的第一个问题，本来打算继续介绍第二个问题，但是发现前几个问题都是Divide And Conquer的思路，有些重复，所以这次先聊些其他的有趣的问题。
 最近东看西看，http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf 这是一篇很有意思的文章，介绍概率分布、概率计算在Hask中的实现。 http://slawekk.wordpress.com/2009/05/31/probability-monad/ 提到了概率分布可以是Monad的一个实例，从中体现Monad的作用。消化之后我实现了一个非常简单的demo来说明其思想，暂不考虑运行效率，话不多说，先放代码：
+
 {% codeblock %}
-import Data.List
- 
- main = print answer
- 
- data Dist a = Dist { unD :: [(a, Double)] } deriving (Show, Eq, Read)
- type Event a = (a -> Bool)
- 
- -- get a uniform distribution from list of element
- uniform :: [a] -> Dist a
- uniform xs = Dist (map (\a -> (a, 1.0 / l)) xs) where
-     l = fromIntegral $ length xs
- 
- -- get event happen probability
- getEventProb :: (Dist a) -> (Event a) -> Double
- getEventProb d event = (sum . (map snd) . filter (event . fst) . unD $ d) / 
-        (sum . (map snd) . unD $ d)
- 
- -- normalize a distribution
- normalize :: (Ord a, Eq a) => (Dist a) -> (Dist a)
- normalize d = Dist [(x, getEventProb d (==x)) | x <- (nub . sort . map fst) $ unD d]
- 
- -- monad
- instance Monad Dist where
-     return x = Dist [(x, 1)]
-     (Dist d) >>= f = Dist [ (y, p * q) | (x, p) <- d, (y, q) <- unD (f x) ]
- 
- -- move function, transition function
- move :: String -> Dist String
- move "Head" = uniform ["Head", "Tail"]
- move "Tail" = uniform ["Tail"]
- 
- -- example
- move2 = uniform ["Head"] >>= move >>= move
- answer = normalize move2
- {% endcodeblock %}
+
+data Dist a = Dist { unD :: [(a, Double)] } deriving (Show, Eq, Read)
+type Event a = (a -> Bool)
+
+-- get a uniform distribution from list of element
+uniform :: [a] -> Dist a
+uniform xs = Dist (map (\a -> (a, 1.0 / l)) xs) where
+    l = fromIntegral $ length xs
+
+-- get event happen probability
+getEventProb :: (Dist a) -> (Event a) -> Double
+getEventProb d event = (sum . (map snd) . filter (event . fst) . unD $ d) / 
+    (sum . (map snd) . unD $ d)
+
+-- normalize a distribution
+normalize :: (Ord a, Eq a) => (Dist a) -> (Dist a)
+normalize d = Dist [(x, getEventProb d (==x)) | x <- (nub . sort . map fst) $ unD d]
+
+-- monad
+instance Monad Dist where
+    return x = Dist [(x, 1)]
+    (Dist d) >>= f = Dist [ (y, p * q) | (x, p) <- d, (y, q) <- unD (f x) ]
+
+-- move function, transition function
+move :: String -> Dist String
+move "Head" = uniform ["Head", "Tail"]
+move "Tail" = uniform ["Tail"]
+
+-- example
+move2 = uniform ["Head"] >>= move >>= move
+answer = normalize move2
+
+main = print answer
+
+{% endcodeblock %}
  
 [1 of 1] Compiling Main             ( prob.hs, prob.o )
 Linking prob ...
