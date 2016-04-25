@@ -100,6 +100,12 @@ stylus:
 
 # Deployment
 ## Docs: http://zespia.tw/hexo/docs/deployment.html
+#deploy:
+#  type: github
+#  repo: git@github.com:pigoneand/pigoneand.github.io.git
+
 deploy:
-  type: github
-  repo: git@github.com:pigoneand/pigoneand.github.io.git
+  type: git
+  repo: git@github.com:pigoneand/pigoneand.github.io.git 
+  branch: master
+  message: 

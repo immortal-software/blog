@@ -1,231 +1,264 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>Cellular Automata | Hexo</title>
+  <title>Cellular Automata | 猪逻辑公园</title>
+  <meta name="author" content="Yihe Zhu">
+  
+  <meta name="description" content="依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，http://www.fractal.cn/message/read.asp?id=23&amp;amp">
+  
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，http://www.fractal.cn/message/read.asp?id=23&amp;amp;subid=1&amp;amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Cellular Automata">
-<meta property="og:url" content="http://yoursite.com/2014/04/03/cellular-automata/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，http://www.fractal.cn/message/read.asp?id=23&amp;amp;subid=1&amp;amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E">
-<meta property="og:image" content="http://yoursite.com/!--￼0-->/images/f863a7bf19ee143ea0b5c537102e510293b98668.png">
-<meta property="og:image" content="http://yoursite.com/!--￼1-->/images/d531240e7f388be5271a7137c94d617a14bebbab.png">
-<meta property="og:image" content="http://yoursite.com/!--￼2-->/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png">
-<meta property="og:image" content="http://yoursite.com/!--￼3-->/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png">
-<meta property="og:image" content="http://yoursite.com/!--￼4-->/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png">
-<meta property="og:updated_time" content="2016-04-23T11:54:31.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cellular Automata">
-<meta name="twitter:description" content="依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，http://www.fractal.cn/message/read.asp?id=23&amp;amp;subid=1&amp;amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E">
-<meta name="twitter:image" content="http://yoursite.com/!--￼0-->/images/f863a7bf19ee143ea0b5c537102e510293b98668.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-27933108-2', 'auto');
-ga('send', 'pageview');
+  <meta property="og:title" content="Cellular Automata"/>
+  <meta property="og:site_name" content="猪逻辑公园"/>
 
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/bootstrap.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-27933108-2', 'auto');
+  ga('send', 'pageview');
 </script>
-<!-- End Google Analytics -->
+
+
 
 
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">猪逻辑公园</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-cellular-automata" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/03/cellular-automata/" class="article-date">
-  <time datetime="2014-04-03T05:44:26.000Z" itemprop="datePublished">2014-04-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Cellular Automata
-    </h1>
-  
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="external">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Cellular Automata</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="external">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
 <p>现在看来，整个图形经过反复迭代，呈现了复杂性，当时这个代码是有些模仿曼德勃罗集的，即使反复迭代迭代，然后看迭代之后的值在那个区间范围，然后涂上不同的颜色即可。 当然能产生这样的效果，多少是运气的成分。<br>不管怎么说，这是自己曾经的一种探索。<br>今天突然又回想起了这些碎片，想到了生命游戏之类的简单却又异常复杂的结构。 特别是想到之前看到了《银河系漫游指南》 其中讲到，the answer to the universe is 42. Why 42? 电影呈现了一个非常搞笑的梗，即使一台能够计算一切的超级人工智能计算机经过计算最后得出了宇宙的终极答案：42。 当时，电影中的所有人都崩溃了，不知道这是什么。 但是计算机很确信，嗯，确实是42.<br>今天这篇日志，在扯淡的同时想要表达一种思考，answer is 42究竟有没有意义？ 我们从细胞自动机来讲起，<br>细胞自动机的实现非常简单，整个空间是一个二维网格，每个网格要么是1，要么是0。 一开始第一行除了最中间的网格为1，其余都为0，然后整个生命开始一行一行迭代，每一行的值依赖于上一行的结果。 其迭代规则由一个表格决定：<br>current pattern                     111    110    101    100    011    010    001    000<br>new state for center cell         0     0     0     1     1     1     1     0<br>每一格的值由上一行的三个值来决定，比如表格中上一行相邻三个值为111，则下一行中间那个值即为0. 如果上一行相邻三个值为011，则下一行那个值为1. 整个自动机的规则其实就由第二行的八个bit决定，所以一个细胞自动机可以用一个0-255的整数来表示。</p>
 <p><img src="!--￼0--&gt;/images/f863a7bf19ee143ea0b5c537102e510293b98668.png" alt="例子"><br><img src="!--￼1--&gt;/images/d531240e7f388be5271a7137c94d617a14bebbab.png" alt="例子"><br><img src="!--￼2--&gt;/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png" alt="例子"><br><img src="!--￼3--&gt;/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png" alt="例子"></p>
 <p>上面列举了不同编号的图案，编号为0，15的都比较简单。 编号为18的出现了分形图案，编号为30的最特殊，其分形图案下还有着一定的随机性，即出现了Chaos。 我们可以想想，假设我们在细胞自动机产生的图样中生活，那么不同编号自动机就会产生不同的宇宙，其中有些宇宙比较简单，非常枯燥。 有些宇宙中会产生规则的秩序（例如编号18），有些宇宙中会产生无序，继而产生无穷的复杂性（例如智慧生命，我们所处的宇宙）。 也就是说，尽管这些宇宙的原理是一致的，但是由于内部编码的不同，将会呈现完全不同的面貌。 而我们所处的宇宙，必然不是一个简单枯燥的宇宙（有些宇宙由于规则不好，只有一条直线，或者全部是空白，而我们的宇宙精彩纷呈，对应了编号30）。 所以这就理解了，如果你生活在编号为30的宇宙中，如果存在上帝，上帝会告诉你，the answer to the universe is 30. 因为上帝设计了这个宇宙机器和初始条件，所以答案的意思就是告诉你，你这个宇宙的初始条件，即对应细胞自动机中的初始编码。<br>最后，再贴几张图：</p>
 <p><img src="!--￼4--&gt;/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png" alt="例子"></p>
+	  
+	</div>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/03/cellular-automata/" data-id="cinfu2roi00017m7lxrkky76s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/04/03/infinite-data-structure-&-cantor-set/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/04/03/废话有信息量吗？/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
     
-<nav id="article-nav">
-  
-    <a href="/2014/04/03/infinite-data-structure-&-cantor-set/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
         
-          Infinite Data Structure &amp; Cantor Set
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
         
-      </div>
-    </a>
-  
-  
-    <a href="/2014/04/03/废话有信息量吗？/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">废话有信息量吗？</div>
-    </a>
-  
-</nav>
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
 
   
-</article>
-
 </section>
-        
-          <aside id="sidebar">
-  
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	Apr 3 2014 
+	</div>
+	
+
+	<!-- categories -->
     
 
-  
-    
+	<!-- tags -->
+		
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li></ul>
-    </div>
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
   </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 Yihe Zhu
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/04/23/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2014/05/07/monad/">Monad</a>
-          </li>
-        
-          <li>
-            <a href="/2014/05/07/最小未出现整数/">最小未出现整数</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/03/先下手真的为强吗？/">先下手真的为强吗？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/03/infinite-data-structure-&-cantor-set/">Infinite Data Structure &amp; Cantor Set</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
-<script src="/js/script.js"></script>
 
-  </div>
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>
