@@ -14,6 +14,8 @@ current pattern	 				111	110	101	100	011	010	001	000
 new state for center cell		 0	 0	 0	 1	 1	 1	 1	 0
 每一格的值由上一行的三个值来决定，比如表格中上一行相邻三个值为111，则下一行中间那个值即为0. 如果上一行相邻三个值为011，则下一行那个值为1. 整个自动机的规则其实就由第二行的八个bit决定，所以一个细胞自动机可以用一个0-255的整数来表示。
 
+[![Sample Image Added via Markdown](/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png)](/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png)
+
 ![例子]({{BASE_PATH}}/images/f863a7bf19ee143ea0b5c537102e510293b98668.png)
 ![例子]({{BASE_PATH}}/images/d531240e7f388be5271a7137c94d617a14bebbab.png)
 ![例子]({{BASE_PATH}}/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png)
