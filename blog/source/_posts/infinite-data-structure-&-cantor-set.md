@@ -3,7 +3,7 @@ date: 2014-04-03 18:27:04
 tags:
 ---
 
-![Cantor Set]({{BASE_PATH}}/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png)
+[![Cantor Set](/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png)]
 
 记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是MATRIX，就是为进程们编制了一个完美的虚拟世界。
 所以无论是此时正在写博客的我，亦或是读者，都应该感谢操作系统。
@@ -11,13 +11,14 @@ tags:
 即你可以通过定义一个无限递归的数据结构，并对他进行运算。
 举个例子来说，康托三分集是一个非常著名的分形结构。 由德国数学家康托与1883年引入，康托集构造很简单，初始为[0,1]的线段，然后每次对每个线段，从中去除中间三分之一的开区间，对左右两边三分之一各自递归直至无穷。 本文最上的图示就展示了康托集合每一步的划分。
 康托集合有如下性质：
-一、包含无穷多个点
-二、不包含任何非零长度的线段
-三、总长度为0
+* 一、包含无穷多个点
+* 二、不包含任何非零长度的线段
+* 三、总长度为0
+
+
 我们可以通过HASKELL用以下方式来定义康托集：
 
-{% codeblock %}
-
+```haskell
 import Data.Ratio
 data Cantor a = Vacant | Interval a a (Cantor a) (Cantor a) (Cantor a)
 getL (Interval a _ _ _ _) = a
@@ -38,8 +39,7 @@ findNumber (Interval a b t1 t2 t3) x
 findNumber Vacant x = "Bingo!"
  
 main = print (findNumber (buildCantor 0 1) (1 % 10))
- 
-{% endcodeblock %}
+```
 
 首先定义数据结构Cantor，他本身要么是个空集，要么是左中右三段。
 buildCantor函数构造了一个无限的康托集，我们使用Ratio Integer来表示有理数，他可以支持任意高精度。

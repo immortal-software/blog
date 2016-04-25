@@ -126,13 +126,32 @@
   <div class="row">
 	
 	
-		<p>这个系列的第二篇文章，上次讨论了Pearls of Functional Algorithm Design这本书以及他的第一个问题，本来打算继续介绍第二个问题，但是发现前几个问题都是Divide And Conquer的思路，有些重复，所以这次先聊些其他的有趣的问题。<br>最近东看西看，<a href="http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf" target="_blank" rel="external">http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf</a> 这是一篇很有意思的文章，介绍概率分布、概率计算在Hask中的实现。 <a href="http://slawekk.wordpress.com/2009/05/31/probability-monad/" target="_blank" rel="external">http://slawekk.wordpress.com/2009/05/31/probability-monad/</a> 提到了概率分布可以是Monad的一个实例，从中体现Monad的作用。消化之后我实现了一个非常简单的demo来说明其思想，暂不考虑运行效率，话不多说，先放代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data Dist a = Dist &#123; unD :: [(a, Double)] &#125; deriving (Show, Eq, Read)</span><br><span class="line">type Event a = (a -&gt; Bool)</span><br><span class="line"></span><br><span class="line">-- get a uniform distribution from list of element</span><br><span class="line">uniform :: [a] -&gt; Dist a</span><br><span class="line">uniform xs = Dist (map (\a -&gt; (a, 1.0 / l)) xs) where</span><br><span class="line">    l = fromIntegral $ length xs</span><br><span class="line"></span><br><span class="line">-- get event happen probability</span><br><span class="line">getEventProb :: (Dist a) -&gt; (Event a) -&gt; Double</span><br><span class="line">getEventProb d event = (sum . (map snd) . filter (event . fst) . unD $ d) / </span><br><span class="line">    (sum . (map snd) . unD $ d)</span><br><span class="line"></span><br><span class="line">-- normalize a distribution</span><br><span class="line">normalize :: (Ord a, Eq a) =&gt; (Dist a) -&gt; (Dist a)</span><br><span class="line">normalize d = Dist [(x, getEventProb d (==x)) | x &lt;- (nub . sort . map fst) $ unD d]</span><br><span class="line"></span><br><span class="line">-- monad</span><br><span class="line">instance Monad Dist where</span><br><span class="line">    return x = Dist [(x, 1)]</span><br><span class="line">    (Dist d) &gt;&gt;= f = Dist [ (y, p * q) | (x, p) &lt;- d, (y, q) &lt;- unD (f x) ]</span><br><span class="line"></span><br><span class="line">-- move function, transition function</span><br><span class="line">move :: String -&gt; Dist String</span><br><span class="line">move &quot;Head&quot; = uniform [&quot;Head&quot;, &quot;Tail&quot;]</span><br><span class="line">move &quot;Tail&quot; = uniform [&quot;Tail&quot;]</span><br><span class="line"></span><br><span class="line">-- example</span><br><span class="line">move2 = uniform [&quot;Head&quot;] &gt;&gt;= move &gt;&gt;= move</span><br><span class="line">answer = normalize move2</span><br><span class="line"></span><br><span class="line">main = print answer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>[1 of 1] Compiling Main             ( prob.hs, prob.o )<br>Linking prob …<br>Dist {unD = [(“Head”,0.25),(“Tail”,0.75)]}<br>我们来逐行分析，首先，定义了data Dist，就是概率分布的一个数据结构，我们用(a = value, Double = prob)，表示在此概率分布上，取值为a这个类型，随机变量X = value, 对应的概率为prob。 例如，(“Head”, 0.5)表示某个随机变量=”Head”的概率为0.5。 基于此，概率分布（即随机变量）= [(a, Double)]，即一系列可能取值的集合。 例如X = [(“Head”, 0.5), (“Tail”, 0.5)]就表示掷硬币的结果分布。<br>另外定义Event type，就是别名，我们认为(a-&gt;Bool)的一个函数为一个事件。<br>接下来，我们定义了uniform函数，根据一个列表来产生一个均一分布。 假设列表长度为n，则每个值的概率都是1/n。这个比较直接。<br>接下来，我们可以定义事件发生的概率如何计算，getEventProb函数就是把所有在事件上为真的项的概率加起来。 这里就体现为何我们用(a-&gt;Bool)来定义事件了，根据概率的定义，一个事件就是所有可能项的一个子集。 例如考试成绩的取值为[0,100]中的整数， 我们定义及格这个事件就是分数取值的一个子集[60,100]， 用子集来定义事件太麻烦，需要一个一个列出来。 进一步，我们可以用一个二值函数来刻画一个子集，这个二值函数返回true，则表示某项属于这个事件，反之则不属于。<br>例如[60,100] = filter (&gt;=60) [0..100]。 (&gt;=60)就定义了一个事件。<br>normalize函数很直接，就是对概率归一化。 因为[(a, Double)]中会出现重复的a，所以这里会对项进行排序和去重，使得normalize之后会合并同类项。<br>接下来，我们引入概率转移，在随机过程中，我们通常会定义转移矩阵，即某值在下一回合（文明打多了。。）变成另外一个值的概率已知。例如在例子中，状态为[“Head”, “Tail”]，我们有转移函数move，并且我们定义如果当前是”Head”，则再投掷一个次硬币，则下回合可能变成Head或者Tail, 如果当前是Tail，则不投了，一直保持Tail。 我们想知道，对于初始概率分布[(“Head”, 1)]，即一开始状态为Head，运行两个回合之后结果是Tail的概率。<br>抽象来说，即我们当前有个分布Dist a，我们对每个值x，都有一个他转移之后的分布，即我们有函数(a -&gt; Dist b)。 现在问题是，假设我们有Dist a, 和函数(a -&gt; Dist b)，如何得到 Dist b。<br>这个时候，我们就发现，这个和Monad的约束是一致的。<br>我们对比下四者：map, fmap, applicative functor, monad,<br>map:: (a-&gt;b) -&gt; [a] -&gt; [b]<br>给定(a-&gt;b)的一个函数，和a类型的列表，返回b类型的列表<br>fmap在map上进行了抽象<br>fmap:: (a-&gt;b) -&gt; f a -&gt; f b<br>给定(a-&gt;b)的一个函数，和一盒子类型a，返回一盒子类型b（盒子表示一个抽象结构，列表是其特例）<br>applicative functor :: (f (a-&gt;b)) -&gt; f a -&gt; f b<br>给定在盒子中进行(a-&gt;b)的函数，和一盒子类型a，返回一盒子类型b<br>monad:: m a -&gt; (a -&gt; m b) -&gt; m b<br>给定一盒子类型a，给定从a变成一盒子b的函数，返回一盒子b。<br>按道理来说，给你一盒子a，每个a可以变成一盒子b，那么结果应该是一盒子包含一盒子b的东西，<br>从直觉上来说即[a] -&gt; (a -&gt; [b]) -&gt; [[b]]，这是直觉的。<br>如果我们需要[a] -&gt; (a -&gt; [b]) -&gt; [b]，即意味着我们需要实现一种（递归的结构）的塌缩方法。<br>即从[[b]] -&gt; [b]的方法，这就是我理解的Monad所体现的一种操作规范。即结构的结构塌缩成结构本身的方法。<br>回到例子中，(Dist a) -&gt; (a -&gt; Dist b) -&gt; Dist b 就体现了概率转移一次之后的结果。 即从当前概率分布，经过一个概率转移函数，变成了下一个概率分布。 而概率转移函数是定义在a类型上的，而不是定义在Dist a这个类型上，这非常符合数学。 如果去定义（Dist a -&gt; Dist b)的函数作为转移函数，其实就给自己找麻烦。<br>另外通常情况下a, b是同一类型。<br>这样，最终我们就可以使用 uniform [“Head”] &gt;&gt;= move &gt;&gt;= move 这样简洁漂亮的写法来实现对此随机过程的模拟。<br>呼。</p>
+		<p>这个系列的第二篇文章，上次讨论了Pearls of Functional Algorithm Design这本书以及他的第一个问题，本来打算继续介绍第二个问题，但是发现前几个问题都是Divide And Conquer的思路，有些重复，所以这次先聊些其他的有趣的问题。</p>
+<p>最近东看西看，<a href="http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf" target="_blank" rel="external">http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf</a> 这是一篇很有意思的文章，介绍概率分布、概率计算在Hask中的实现。 <a href="http://slawekk.wordpress.com/2009/05/31/probability-monad/" target="_blank" rel="external">http://slawekk.wordpress.com/2009/05/31/probability-monad/</a> 提到了概率分布可以是Monad的一个实例，从中体现Monad的作用。消化之后我实现了一个非常简单的demo来说明其思想，暂不考虑运行效率，话不多说，先放代码：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Dist</span> a = <span class="type">Dist</span> &#123; <span class="title">unD</span> :: [(<span class="title">a</span>, <span class="type">Double</span>)] &#125; <span class="keyword">deriving</span> (<span class="type">Show</span>, <span class="type">Eq</span>, <span class="type">Read</span>)</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="type">Event</span> a = (<span class="title">a</span> -&gt; <span class="type">Bool</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- get a uniform distribution from list of element</span></span><br><span class="line"><span class="title">uniform</span> :: [a] -&gt; <span class="type">Dist</span> a</span><br><span class="line"><span class="title">uniform</span> xs = <span class="type">Dist</span> (map (\a -&gt; (a, <span class="number">1.0</span> / l)) xs) <span class="keyword">where</span></span><br><span class="line">    l = fromIntegral $ length xs</span><br><span class="line"></span><br><span class="line"><span class="comment">-- get event happen probability</span></span><br><span class="line"><span class="title">getEventProb</span> :: (<span class="type">Dist</span> a) -&gt; (<span class="type">Event</span> a) -&gt; <span class="type">Double</span></span><br><span class="line"><span class="title">getEventProb</span> d event = (sum . (map snd) . filter (event . fst) . unD $ d) / </span><br><span class="line">    (sum . (map snd) . unD $ d)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- normalize a distribution</span></span><br><span class="line"><span class="title">normalize</span> :: (<span class="type">Ord</span> a, <span class="type">Eq</span> a) =&gt; (<span class="type">Dist</span> a) -&gt; (<span class="type">Dist</span> a)</span><br><span class="line"><span class="title">normalize</span> d = <span class="type">Dist</span> [(x, getEventProb d (==x)) | x &lt;- (nub . sort . map fst) $ unD d]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- monad</span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> <span class="type">Dist</span> <span class="keyword">where</span></span></span><br><span class="line">    return x = <span class="type">Dist</span> [(x, <span class="number">1</span>)]</span><br><span class="line">    (<span class="type">Dist</span> d) &gt;&gt;= f = <span class="type">Dist</span> [ (y, p * q) | (x, p) &lt;- d, (y, q) &lt;- unD (f x) ]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- move function, transition function</span></span><br><span class="line"><span class="title">move</span> :: <span class="type">String</span> -&gt; <span class="type">Dist</span> <span class="type">String</span></span><br><span class="line"><span class="title">move</span> <span class="string">"Head"</span> = uniform [<span class="string">"Head"</span>, <span class="string">"Tail"</span>]</span><br><span class="line"><span class="title">move</span> <span class="string">"Tail"</span> = uniform [<span class="string">"Tail"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- example</span></span><br><span class="line"><span class="title">move2</span> = uniform [<span class="string">"Head"</span>] &gt;&gt;= move &gt;&gt;= move</span><br><span class="line"><span class="title">answer</span> = normalize move2</span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = print answer</span><br></pre></td></tr></table></figure>
+<p>[1 of 1] Compiling Main             ( prob.hs, prob.o )<br>Linking prob …<br>Dist {unD = [(“Head”,0.25),(“Tail”,0.75)]}</p>
+<h4 id="随机变量的取值分布"><a href="#随机变量的取值分布" class="headerlink" title="随机变量的取值分布"></a>随机变量的取值分布</h4><p>我们来逐行分析，首先，定义了data Dist，就是概率分布的一个数据结构，我们用(a = value, Double = prob)，表示在此概率分布上，取值为a这个类型，随机变量X = value, 对应的概率为prob。 例如，(“Head”, 0.5)表示某个随机变量=”Head”的概率为0.5。 基于此，概率分布（即随机变量）= [(a, Double)]，即一系列可能取值的集合。 例如X = [(“Head”, 0.5), (“Tail”, 0.5)]就表示掷硬币的结果分布。</p>
+<h4 id="产生均一分布"><a href="#产生均一分布" class="headerlink" title="产生均一分布"></a>产生均一分布</h4><p>接下来，我们定义了uniform函数，根据一个列表来产生一个均一分布。 假设列表长度为n，则每个值的概率都是1/n。这个比较直接。</p>
+<h4 id="如何表示事件"><a href="#如何表示事件" class="headerlink" title="如何表示事件"></a>如何表示事件</h4><p>另外定义Event type，就是别名，我们认为(a-&gt;Bool)的一个函数为一个事件。</p>
+<h4 id="如何计算事件发生的概率"><a href="#如何计算事件发生的概率" class="headerlink" title="如何计算事件发生的概率"></a>如何计算事件发生的概率</h4><p>接下来，我们可以定义事件发生的概率如何计算，getEventProb函数就是把所有在事件上为真的项的概率加起来。 这里就体现为何我们用(a-&gt;Bool)来定义事件了，根据概率的定义，一个事件就是所有可能项的一个子集。 例如考试成绩的取值为[0,100]中的整数， 我们定义及格这个事件就是分数取值的一个子集[60,100]， 用子集来定义事件太麻烦，需要一个一个列出来。 进一步，我们可以用一个二值函数来刻画一个子集，这个二值函数返回true，则表示某项属于这个事件，反之则不属于。<br>例如[60,100] = filter (&gt;=60) [0..100]。 (&gt;=60)就定义了一个事件。</p>
+<p>normalize函数很直接，就是对概率归一化。 因为[(a, Double)]中会出现重复的a，所以这里会对项进行排序和去重，使得normalize之后会合并同类项。</p>
+<h4 id="概率转移"><a href="#概率转移" class="headerlink" title="概率转移"></a>概率转移</h4><p>接下来，我们引入概率转移，在随机过程中，我们通常会定义转移矩阵，即某值在下一回合（文明打多了。。）变成另外一个值的概率已知。例如在例子中，状态为[“Head”, “Tail”]，我们有转移函数move，并且我们定义如果当前是”Head”，则再投掷一个次硬币，则下回合可能变成Head或者Tail, 如果当前是Tail，则不投了，一直保持Tail。 我们想知道，对于初始概率分布[(“Head”, 1)]，即一开始状态为Head，运行两个回合之后结果是Tail的概率。<br>抽象来说，即我们当前有个分布Dist a，我们对每个值x，都有一个他转移之后的分布，即我们有函数(a -&gt; Dist b)。 现在问题是，假设我们有Dist a, 和函数(a -&gt; Dist b)，如何得到 Dist b。<br>这个时候，我们就发现，这个和Monad的约束是一致的。</p>
+<h4 id="map-fmap-applicative-functor-monad"><a href="#map-fmap-applicative-functor-monad" class="headerlink" title="map, fmap, applicative functor, monad"></a>map, fmap, applicative functor, monad</h4><p>我们对比下四者：map, fmap, applicative functor, monad,</p>
+<ul>
+<li><p>map:: (a-&gt;b) -&gt; [a] -&gt; [b]<br>给定(a-&gt;b)的一个函数，和a类型的列表，返回b类型的列表</p>
+</li>
+<li><p>fmap在map上进行了抽象<br>fmap:: (a-&gt;b) -&gt; f a -&gt; f b<br>给定(a-&gt;b)的一个函数，和一盒子类型a，返回一盒子类型b（盒子表示一个抽象结构，列表是其特例）</p>
+</li>
+<li><p>applicative functor :: (f (a-&gt;b)) -&gt; f a -&gt; f b<br>给定在盒子中进行(a-&gt;b)的函数，和一盒子类型a，返回一盒子类型b</p>
+</li>
+<li><p>monad:: m a -&gt; (a -&gt; m b) -&gt; m b<br>给定一盒子类型a，给定从a变成一盒子b的函数，返回一盒子b。<br>按道理来说，给你一盒子a，每个a可以变成一盒子b，那么结果应该是一盒子包含一盒子b的东西，<br>从直觉上来说即[a] -&gt; (a -&gt; [b]) -&gt; [[b]]，这是直觉的。<br>如果我们需要[a] -&gt; (a -&gt; [b]) -&gt; [b]，即意味着我们需要实现一种（递归的结构）的塌缩方法。<br>即从[[b]] -&gt; [b]的方法，这就是我理解的Monad所体现的一种操作规范。即结构的结构塌缩成结构本身的方法。</p>
+</li>
+</ul>
+<p>回到例子中，(Dist a) -&gt; (a -&gt; Dist b) -&gt; Dist b 就体现了概率转移一次之后的结果。 即从当前概率分布，经过一个概率转移函数，变成了下一个概率分布。 而概率转移函数是定义在a类型上的，而不是定义在Dist a这个类型上，这非常符合数学。 如果去定义（Dist a -&gt; Dist b)的函数作为转移函数，其实就给自己找麻烦。<br>另外通常情况下a, b是同一类型。<br>这样，最终我们就可以使用 uniform [“Head”] &gt;&gt;= move &gt;&gt;= move 这样简洁漂亮的写法来实现对此随机过程的模拟。<br>呼。</p>
 
 	
 	</div>
-  <a type="button" href="/2014/05/07/monad/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/05/07/monad/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -159,7 +178,7 @@
 
 	
 	</div>
-  <a type="button" href="/2014/05/07/最小未出现整数/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/05/07/最小未出现整数/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -221,7 +240,7 @@
 
 	
 	</div>
-  <a type="button" href="/2014/04/03/先下手真的为强吗？/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/04/03/先下手真的为强吗？/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -239,14 +258,20 @@
   <div class="row">
 	
 	
-		<p><img src="!--￼1--&gt;/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png" alt="Cantor Set"></p>
-<p>记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是MATRIX，就是为进程们编制了一个完美的虚拟世界。<br>所以无论是此时正在写博客的我，亦或是读者，都应该感谢操作系统。<br>然而，本文不是要歌颂或是讨论操作系统，只是引申开来，讲一些与之联系的思考。 这里我们要讨论的是处理无穷大的能力。 直截了当的说就是，函数式语言能够很好的刻画递归，此外数据结构本身也可以递归的定义，如果此时，这个函数式语言还支持Lazy Evaluation的特性，那么就为上层编程者提供了一种处理无穷的能力。<br>即你可以通过定义一个无限递归的数据结构，并对他进行运算。<br>举个例子来说，康托三分集是一个非常著名的分形结构。 由德国数学家康托与1883年引入，康托集构造很简单，初始为[0,1]的线段，然后每次对每个线段，从中去除中间三分之一的开区间，对左右两边三分之一各自递归直至无穷。 本文最上的图示就展示了康托集合每一步的划分。<br>康托集合有如下性质：<br>一、包含无穷多个点<br>二、不包含任何非零长度的线段<br>三、总长度为0<br>我们可以通过HASKELL用以下方式来定义康托集：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import Data.Ratio</span><br><span class="line">data Cantor a = Vacant | Interval a a (Cantor a) (Cantor a) (Cantor a)</span><br><span class="line">getL (Interval a _ _ _ _) = a</span><br><span class="line">getR (Interval _ a _ _ _) = a</span><br><span class="line"> </span><br><span class="line">buildCantor :: Ratio Integer -&gt; Ratio Integer -&gt; Cantor (Ratio Integer)</span><br><span class="line">buildCantor l r = (Interval l r) (buildCantor l ((r - l) / 3 + l)) (Vacant) (buildCantor (r - (r - l) / 3) r)</span><br><span class="line"> </span><br><span class="line">inCantor :: (Ord a) =&gt; (Cantor a) -&gt; a -&gt; Bool</span><br><span class="line">inCantor Vacant _ = False</span><br><span class="line">inCantor (Interval a b t1 t2 t3) (x) = (x &gt;= a &amp;&amp; x &lt;= b)</span><br><span class="line"> </span><br><span class="line">findNumber :: Cantor (Ratio Integer) -&gt; Ratio Integer -&gt; String </span><br><span class="line">findNumber (Interval a b t1 t2 t3) x </span><br><span class="line">    | (inCantor t1 x) = &quot;[&quot; ++ (show a) ++ &quot;,&quot; ++ (show $ getR t1) ++ &quot;]&quot; ++ &quot;=&gt;&quot; ++ (findNumber t1 x)</span><br><span class="line">    | (inCantor t3 x) = &quot;[&quot; ++ (show $ getL t3) ++ &quot;,&quot; ++ (show b) ++ &quot;]&quot; ++ &quot;=&gt;&quot; ++ (findNumber t3 x)</span><br><span class="line">    | otherwise = &quot;[&quot; ++ (show $ getR t1) ++ &quot;,&quot; ++ (show $ getL t3) ++ &quot;]&quot; ++ &quot;=&gt;&quot; ++ (findNumber t2 x) </span><br><span class="line">findNumber Vacant x = &quot;Bingo!&quot;</span><br><span class="line"> </span><br><span class="line">main = print (findNumber (buildCantor 0 1) (1 % 10))</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+		<p>[<img src="/images/f9b8da50356299117a6fbd4adf2f843947bf3da2.png" alt="Cantor Set">]</p>
+<p>记得大学时邹恒明老师曾把操作系统比喻为一名魔术师。 因为他所做的工作，就是掩盖底层物理设备的不完美与不和谐，而对运行其上的程序提供一个舒适的家园。 每个进程都有自己的超大的地址空间，CPU仿佛一直在为其不停的计算，各个设备都能够友善的访问和操作。 这些都不是凡人能做到的。 操作系统对进程来说，就是MATRIX，就是为进程们编制了一个完美的虚拟世界。<br>所以无论是此时正在写博客的我，亦或是读者，都应该感谢操作系统。<br>然而，本文不是要歌颂或是讨论操作系统，只是引申开来，讲一些与之联系的思考。 这里我们要讨论的是处理无穷大的能力。 直截了当的说就是，函数式语言能够很好的刻画递归，此外数据结构本身也可以递归的定义，如果此时，这个函数式语言还支持Lazy Evaluation的特性，那么就为上层编程者提供了一种处理无穷的能力。<br>即你可以通过定义一个无限递归的数据结构，并对他进行运算。<br>举个例子来说，康托三分集是一个非常著名的分形结构。 由德国数学家康托与1883年引入，康托集构造很简单，初始为[0,1]的线段，然后每次对每个线段，从中去除中间三分之一的开区间，对左右两边三分之一各自递归直至无穷。 本文最上的图示就展示了康托集合每一步的划分。<br>康托集合有如下性质：</p>
+<ul>
+<li>一、包含无穷多个点</li>
+<li>二、不包含任何非零长度的线段</li>
+<li>三、总长度为0</li>
+</ul>
+<p>我们可以通过HASKELL用以下方式来定义康托集：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Data.Ratio</span><br><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Cantor</span> a = <span class="type">Vacant</span> | <span class="type">Interval</span> a a (<span class="type">Cantor</span> <span class="title">a</span>) (<span class="type">Cantor</span> <span class="title">a</span>) (<span class="type">Cantor</span> <span class="title">a</span>)</span></span><br><span class="line"><span class="title">getL</span> (<span class="type">Interval</span> a _ _ _ _) = a</span><br><span class="line"><span class="title">getR</span> (<span class="type">Interval</span> _ a _ _ _) = a</span><br><span class="line"> </span><br><span class="line"><span class="title">buildCantor</span> :: <span class="type">Ratio</span> <span class="type">Integer</span> -&gt; <span class="type">Ratio</span> <span class="type">Integer</span> -&gt; <span class="type">Cantor</span> (<span class="type">Ratio</span> <span class="type">Integer</span>)</span><br><span class="line"><span class="title">buildCantor</span> l r = (<span class="type">Interval</span> l r) (buildCantor l ((r - l) / <span class="number">3</span> + l)) (<span class="type">Vacant</span>) (buildCantor (r - (r - l) / <span class="number">3</span>) r)</span><br><span class="line"> </span><br><span class="line"><span class="title">inCantor</span> :: (<span class="type">Ord</span> a) =&gt; (<span class="type">Cantor</span> a) -&gt; a -&gt; <span class="type">Bool</span></span><br><span class="line"><span class="title">inCantor</span> <span class="type">Vacant</span> _ = <span class="type">False</span></span><br><span class="line"><span class="title">inCantor</span> (<span class="type">Interval</span> a b t1 t2 t3) (x) = (x &gt;= a &amp;&amp; x &lt;= b)</span><br><span class="line"> </span><br><span class="line"><span class="title">findNumber</span> :: <span class="type">Cantor</span> (<span class="type">Ratio</span> <span class="type">Integer</span>) -&gt; <span class="type">Ratio</span> <span class="type">Integer</span> -&gt; <span class="type">String</span> </span><br><span class="line"><span class="title">findNumber</span> (<span class="type">Interval</span> a b t1 t2 t3) x </span><br><span class="line">    | (inCantor t1 x) = <span class="string">"["</span> ++ (show a) ++ <span class="string">","</span> ++ (show $ getR t1) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t1 x)</span><br><span class="line">    | (inCantor t3 x) = <span class="string">"["</span> ++ (show $ getL t3) ++ <span class="string">","</span> ++ (show b) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t3 x)</span><br><span class="line">    | otherwise = <span class="string">"["</span> ++ (show $ getR t1) ++ <span class="string">","</span> ++ (show $ getL t3) ++ <span class="string">"]"</span> ++ <span class="string">"=&gt;"</span> ++ (findNumber t2 x) </span><br><span class="line"><span class="title">findNumber</span> <span class="type">Vacant</span> x = <span class="string">"Bingo!"</span></span><br><span class="line"> </span><br><span class="line"><span class="title">main</span> = print (findNumber (buildCantor <span class="number">0</span> <span class="number">1</span>) (<span class="number">1</span> % <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
 <p>首先定义数据结构Cantor，他本身要么是个空集，要么是左中右三段。<br>buildCantor函数构造了一个无限的康托集，我们使用Ratio Integer来表示有理数，他可以支持任意高精度。<br>接下来，我们实现findNumber函数在这个无限的结构中寻找一个点是否存在，如果一个点在某一层落入了Vacant，则他不在康托集中，那么我们可以得到输出其路径。<br>很多数都会很快Bingo.<br>例如：输入为12/17,输出为<br>“[2 % 3,1 % 1]=&gt;[2 % 3,7 % 9]=&gt;[19 % 27,20 % 27]=&gt;Bingo!”<br>输入为2/5，则<br>“[1 % 3,2 % 3]=&gt;Bingo!”<br>输入为1/10，看似简单，但<br>“[0 % 1,1 % 3]=&gt;[0 % 1,1 % 9]=&gt;[2 % 27,1 % 9]=&gt;[8 % 81,1 % 9]=&gt;[8 % 81,25 % 243]=&gt;[8 % 81,73 % 729]=&gt;[218 % 2187,73 % 729]=&gt;[656 % 6561,73 % 729]=&gt;[656 % 6561,1969 % 19683]=&gt;[656 % 6561,5905 % 59049]。。。。。。<br>程序在内存耗尽前将永远无法结束，这个点存在于康托集中，但永远找不到他属于那个区间，因为康托集不包含任何非零长度的线段。<br>这个程序的魅力在于我们有能力去刻画这个无限集合，同时，在构造时，不需要事先指定构造层数之类的细节。 由于lazy特性，只要当需要时，我们才会去展开需要的分支，所以无需担心无限的结构一开始耗尽内存。 这个判断程序一个while循环在任何语言中都能实现，但这样的实现方式还是有其独特意义的，因为我们首先定义并构造了这个无限集合，之后我们再对齐运算。 而while的判断实现实际上并没有得到这个集合。</p>
 
 	
 	</div>
-  <a type="button" href="/2014/04/03/infinite-data-structure-&-cantor-set/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/04/03/infinite-data-structure-&-cantor-set/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -264,15 +289,46 @@
   <div class="row">
 	
 	
-		<p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="external">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
-<p>现在看来，整个图形经过反复迭代，呈现了复杂性，当时这个代码是有些模仿曼德勃罗集的，即使反复迭代迭代，然后看迭代之后的值在那个区间范围，然后涂上不同的颜色即可。 当然能产生这样的效果，多少是运气的成分。<br>不管怎么说，这是自己曾经的一种探索。<br>今天突然又回想起了这些碎片，想到了生命游戏之类的简单却又异常复杂的结构。 特别是想到之前看到了《银河系漫游指南》 其中讲到，the answer to the universe is 42. Why 42? 电影呈现了一个非常搞笑的梗，即使一台能够计算一切的超级人工智能计算机经过计算最后得出了宇宙的终极答案：42。 当时，电影中的所有人都崩溃了，不知道这是什么。 但是计算机很确信，嗯，确实是42.<br>今天这篇日志，在扯淡的同时想要表达一种思考，answer is 42究竟有没有意义？ 我们从细胞自动机来讲起，<br>细胞自动机的实现非常简单，整个空间是一个二维网格，每个网格要么是1，要么是0。 一开始第一行除了最中间的网格为1，其余都为0，然后整个生命开始一行一行迭代，每一行的值依赖于上一行的结果。 其迭代规则由一个表格决定：<br>current pattern                     111    110    101    100    011    010    001    000<br>new state for center cell         0     0     0     1     1     1     1     0<br>每一格的值由上一行的三个值来决定，比如表格中上一行相邻三个值为111，则下一行中间那个值即为0. 如果上一行相邻三个值为011，则下一行那个值为1. 整个自动机的规则其实就由第二行的八个bit决定，所以一个细胞自动机可以用一个0-255的整数来表示。</p>
-<p><img src="!--￼0--&gt;/images/f863a7bf19ee143ea0b5c537102e510293b98668.png" alt="例子"><br><img src="!--￼1--&gt;/images/d531240e7f388be5271a7137c94d617a14bebbab.png" alt="例子"><br><img src="!--￼2--&gt;/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png" alt="例子"><br><img src="!--￼3--&gt;/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png" alt="例子"></p>
-<p>上面列举了不同编号的图案，编号为0，15的都比较简单。 编号为18的出现了分形图案，编号为30的最特殊，其分形图案下还有着一定的随机性，即出现了Chaos。 我们可以想想，假设我们在细胞自动机产生的图样中生活，那么不同编号自动机就会产生不同的宇宙，其中有些宇宙比较简单，非常枯燥。 有些宇宙中会产生规则的秩序（例如编号18），有些宇宙中会产生无序，继而产生无穷的复杂性（例如智慧生命，我们所处的宇宙）。 也就是说，尽管这些宇宙的原理是一致的，但是由于内部编码的不同，将会呈现完全不同的面貌。 而我们所处的宇宙，必然不是一个简单枯燥的宇宙（有些宇宙由于规则不好，只有一条直线，或者全部是空白，而我们的宇宙精彩纷呈，对应了编号30）。 所以这就理解了，如果你生活在编号为30的宇宙中，如果存在上帝，上帝会告诉你，the answer to the universe is 30. 因为上帝设计了这个宇宙机器和初始条件，所以答案的意思就是告诉你，你这个宇宙的初始条件，即对应细胞自动机中的初始编码。<br>最后，再贴几张图：</p>
-<p><img src="!--￼4--&gt;/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png" alt="例子"></p>
+		<h2 id="分形"><a href="#分形" class="headerlink" title="分形"></a>分形</h2><p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="external">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
+<p>现在看来，整个图形经过反复迭代，呈现了复杂性，当时这个代码是有些模仿曼德勃罗集的，即使反复迭代迭代，然后看迭代之后的值在那个区间范围，然后涂上不同的颜色即可。 当然能产生这样的效果，多少是运气的成分。</p>
+<h2 id="Answer-is-42"><a href="#Answer-is-42" class="headerlink" title="Answer is 42"></a>Answer is 42</h2><p>不管怎么说，这是自己曾经的一种探索。<br>今天突然又回想起了这些碎片，想到了生命游戏之类的简单却又异常复杂的结构。 特别是想到之前看到了《银河系漫游指南》 其中讲到，the answer to the universe is 42. Why 42? 电影呈现了一个非常搞笑的梗，即使一台能够计算一切的超级人工智能计算机经过计算最后得出了宇宙的终极答案：42。 当时，电影中的所有人都崩溃了，不知道这是什么。 但是计算机很确信，嗯，确实是42.<br>今天这篇日志，在扯淡的同时想要表达一种思考，answer is 42究竟有没有意义？ 我们从元胞自动机来讲起。</p>
+<h2 id="元胞自动机"><a href="#元胞自动机" class="headerlink" title="元胞自动机"></a>元胞自动机</h2><p>元胞自动机的实现非常简单，整个空间是一个二维网格，每个网格要么是1，要么是0。 一开始第一行除了最中间的网格为1，其余都为0，然后整个生命开始一行一行迭代，每一行的值依赖于上一行的结果。 其迭代规则由一个表格决定：</p>
+<table>
+<thead>
+<tr>
+<th>current pattern</th>
+<th>111</th>
+<th>110</th>
+<th>101</th>
+<th>100</th>
+<th>011</th>
+<th>010</th>
+<th>001</th>
+<th>000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new state for center cell</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>每一格的值由上一行的三个值来决定，比如表格中上一行相邻三个值为111，则下一行中间那个值即为0. 如果上一行相邻三个值为011，则下一行那个值为1. 整个自动机的规则其实就由第二行的八个bit决定，所以一个元胞自动机可以用一个0-255的整数来表示。</p>
+<p><a href="/images/f863a7bf19ee143ea0b5c537102e510293b98668.png"><img src="/images/f863a7bf19ee143ea0b5c537102e510293b98668.png" alt="例子"></a><br><a href="/images/d531240e7f388be5271a7137c94d617a14bebbab.png"><img src="/images/d531240e7f388be5271a7137c94d617a14bebbab.png" alt="例子"></a><br><a href="/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png"><img src="/images/f73067411774f9607f0efe6a5b469b1aa98f3ab3.png" alt="例子"></a><br><a href="/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png"><img src="/images/5a1a0c87394719a426b4bffb7e7bb0f3e8608bdd.png" alt="例子"></a></p>
+<p>上面列举了不同编号的图案，编号为0，15的都比较简单。 编号为18的出现了分形图案，编号为30的最特殊，其分形图案下还有着一定的随机性，即出现了Chaos。 我们可以想想，假设我们在元胞自动机产生的图样中生活，那么不同编号自动机就会产生不同的宇宙，其中有些宇宙比较简单，非常枯燥。 有些宇宙中会产生规则的秩序（例如编号18），有些宇宙中会产生无序，继而产生无穷的复杂性（例如智慧生命，我们所处的宇宙）。 也就是说，尽管这些宇宙的原理是一致的，但是由于内部编码的不同，将会呈现完全不同的面貌。 而我们所处的宇宙，必然不是一个简单枯燥的宇宙（有些宇宙由于规则不好，只有一条直线，或者全部是空白，而我们的宇宙精彩纷呈，对应了编号30）。 所以这就理解了，如果你生活在编号为30的宇宙中，如果存在上帝，上帝会告诉你，the answer to the universe is 30. 因为上帝设计了这个宇宙机器和初始条件，所以答案的意思就是告诉你，你这个宇宙的初始条件，即对应元胞自动机中的初始编码。<br>最后，再贴几张图：</p>
+<p><a href="/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png"><img src="/images/536cb7551d011de3b421cce3e214c1c4200b63f6.png" alt="例子"></a></p>
 
 	
 	</div>
-  <a type="button" href="/2014/04/03/cellular-automata/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/04/03/cellular-automata/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -295,7 +351,7 @@
 
 	
 	</div>
-  <a type="button" href="/2014/04/03/废话有信息量吗？/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2014/04/03/废话有信息量吗？/#more" class="btn btn-default more">Leia Mais</a>
 </div>
 
 		
@@ -325,7 +381,7 @@
 			
   <div id="site_search">
    <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="Busca" class="st-search-input st-default-search-input form-control"/>
    </div>  
   <div id="local-search-result"></div>
   </div>
@@ -335,11 +391,21 @@
 			
 		
 			
+	<div class="widget">
+		<h4>Tag Cloud</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/AI/">AI<span>1</span></a></li>
+		
+		 
+		</ul>
+	</div>
+
 
 		
 			
 <div class="widget">
-  <h4>Recent Posts</h4>
+  <h4>Posts recentes</h4>
   <ul class="entry list-unstyled">
     
       <li>
@@ -371,11 +437,7 @@
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/freemind/" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/wzpan" title="My Github account." target="_blank"]);">My Github</a></li>
-	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/hahack" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
+		<li><i class="fa fa-github"></i><a href="https://github.com/pigoneand" title="My Github account." target="_blank"]);">My Github</a></li>
 	
 	</ul>
 </div>
