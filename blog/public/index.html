@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>猪逻辑公园</title>
-  <meta name="author" content="Yihe Zhu">
+  <title>软件不朽</title>
+  <meta name="author" content="7788">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="猪逻辑公园"/>
+  <meta property="og:site_name" content="软件不朽"/>
 
   
     <meta property="og:image" content="undefined"/>
@@ -22,27 +22,30 @@
   
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/bootstrap.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+  <![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
-
+  
+    <script src="/js/marked.js"></script>
+    <script src="/js/comment.js"></script>
+    <script src="/js/timeago.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+	<script src="/js/spin.min.js"></script>
+  
   <!-- analytics -->
   
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-27933108-2', 'auto');
-  ga('send', 'pageview');
-</script>
-
 
 
 
@@ -57,13 +60,31 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-       <a class="navbar-brand" href="/">猪逻辑公园</a>
+       <a class="navbar-brand" href="/">软件不朽</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
 		  <li>
 			<a href="/archives" title="All the articles.">
 			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
 			</a>
 		  </li>
 		  
@@ -76,7 +97,7 @@
   <div class="container">
   	<div class="content">
     	 <div class="page-header page-header-inverse ">
-  <h1 class="title title-inverse ">猪逻辑公园</h1>
+  <h1 class="title title-inverse ">软件不朽</h1>
 </div>
 
 <div class="row page">
@@ -87,14 +108,32 @@
 
 		<div class="slogan">
       <i class="fa fa-heart"></i>
-      Youth is not a time of life, it&#39;s state of mind
+      Yet another bootstrap theme.
 </div>    
 		<div id="top_search"></div>
 		<div class="mypage">
 		
 		<!-- title and entry -->
+        <!-- render top articles firstly -->
+        
 		
-			
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+        
+        <!-- render other articles -->
+        
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -104,12 +143,12 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
 		<p>这个系列的第二篇文章，上次讨论了Pearls of Functional Algorithm Design这本书以及他的第一个问题，本来打算继续介绍第二个问题，但是发现前几个问题都是Divide And Conquer的思路，有些重复，所以这次先聊些其他的有趣的问题。</p>
-<p>最近东看西看，<a href="http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf" target="_blank" rel="external">http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf</a> 这是一篇很有意思的文章，介绍概率分布、概率计算在Hask中的实现。 <a href="http://slawekk.wordpress.com/2009/05/31/probability-monad/" target="_blank" rel="external">http://slawekk.wordpress.com/2009/05/31/probability-monad/</a> 提到了概率分布可以是Monad的一个实例，从中体现Monad的作用。消化之后我实现了一个非常简单的demo来说明其思想，暂不考虑运行效率，话不多说，先放代码：</p>
+<p>最近东看西看，<a href="http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf" target="_blank" rel="noopener">http://web.engr.oregonstate.edu/~erwig/papers/PFP_JFP06.pdf</a> 这是一篇很有意思的文章，介绍概率分布、概率计算在Hask中的实现。 <a href="http://slawekk.wordpress.com/2009/05/31/probability-monad/" target="_blank" rel="noopener">http://slawekk.wordpress.com/2009/05/31/probability-monad/</a> 提到了概率分布可以是Monad的一个实例，从中体现Monad的作用。消化之后我实现了一个非常简单的demo来说明其思想，暂不考虑运行效率，话不多说，先放代码：</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Dist</span> a = <span class="type">Dist</span> &#123; <span class="title">unD</span> :: [(<span class="title">a</span>, <span class="type">Double</span>)] &#125; <span class="keyword">deriving</span> (<span class="type">Show</span>, <span class="type">Eq</span>, <span class="type">Read</span>)</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="type">Event</span> a = (<span class="title">a</span> -&gt; <span class="type">Bool</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- get a uniform distribution from list of element</span></span><br><span class="line"><span class="title">uniform</span> :: [a] -&gt; <span class="type">Dist</span> a</span><br><span class="line"><span class="title">uniform</span> xs = <span class="type">Dist</span> (map (\a -&gt; (a, <span class="number">1.0</span> / l)) xs) <span class="keyword">where</span></span><br><span class="line">    l = fromIntegral $ length xs</span><br><span class="line"></span><br><span class="line"><span class="comment">-- get event happen probability</span></span><br><span class="line"><span class="title">getEventProb</span> :: (<span class="type">Dist</span> a) -&gt; (<span class="type">Event</span> a) -&gt; <span class="type">Double</span></span><br><span class="line"><span class="title">getEventProb</span> d event = (sum . (map snd) . filter (event . fst) . unD $ d) / </span><br><span class="line">    (sum . (map snd) . unD $ d)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- normalize a distribution</span></span><br><span class="line"><span class="title">normalize</span> :: (<span class="type">Ord</span> a, <span class="type">Eq</span> a) =&gt; (<span class="type">Dist</span> a) -&gt; (<span class="type">Dist</span> a)</span><br><span class="line"><span class="title">normalize</span> d = <span class="type">Dist</span> [(x, getEventProb d (==x)) | x &lt;- (nub . sort . map fst) $ unD d]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- monad</span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> <span class="type">Dist</span> <span class="keyword">where</span></span></span><br><span class="line">    return x = <span class="type">Dist</span> [(x, <span class="number">1</span>)]</span><br><span class="line">    (<span class="type">Dist</span> d) &gt;&gt;= f = <span class="type">Dist</span> [ (y, p * q) | (x, p) &lt;- d, (y, q) &lt;- unD (f x) ]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- move function, transition function</span></span><br><span class="line"><span class="title">move</span> :: <span class="type">String</span> -&gt; <span class="type">Dist</span> <span class="type">String</span></span><br><span class="line"><span class="title">move</span> <span class="string">"Head"</span> = uniform [<span class="string">"Head"</span>, <span class="string">"Tail"</span>]</span><br><span class="line"><span class="title">move</span> <span class="string">"Tail"</span> = uniform [<span class="string">"Tail"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- example</span></span><br><span class="line"><span class="title">move2</span> = uniform [<span class="string">"Head"</span>] &gt;&gt;= move &gt;&gt;= move</span><br><span class="line"><span class="title">answer</span> = normalize move2</span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = print answer</span><br></pre></td></tr></table></figure>
 <p>[1 of 1] Compiling Main             ( prob.hs, prob.o )<br>Linking prob …<br>Dist {unD = [(“Head”,0.25),(“Tail”,0.75)]}</p>
 <h4 id="随机变量的取值分布"><a href="#随机变量的取值分布" class="headerlink" title="随机变量的取值分布"></a>随机变量的取值分布</h4><p>我们来逐行分析，首先，定义了data Dist，就是概率分布的一个数据结构，我们用(a = value, Double = prob)，表示在此概率分布上，取值为a这个类型，随机变量X = value, 对应的概率为prob。 例如，(“Head”, 0.5)表示某个随机变量=”Head”的概率为0.5。 基于此，概率分布（即随机变量）= [(a, Double)]，即一系列可能取值的集合。 例如X = [(“Head”, 0.5), (“Tail”, 0.5)]就表示掷硬币的结果分布。</p>
@@ -136,8 +175,10 @@
   <a type="button" href="/2014/05/07/monad/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
-			
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -147,24 +188,26 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
-		<p>最近在看完了Learn you a Haskell for great good之后，有许多感悟。这篇系列博客要谈的是另一个方面，关于Haskell这一类的函数式编程语言的共性，即是函数式编程和imperative语言相比在算法设计上的不同视角。 引入另一本书，Pearls of Functional Algorithm Design (Richard Bird)， 我们都知道 Programming Pearls (编程珠玑）， 这本书相当于针对FP的编程珠玑。 全书总共讲了30个例子，当然很多都太难暂时消化不了，但对于能够理解并有所体会的，本系列文章会加以讨论。<br>首先，我们谈一谈这本书作者本身的体会，”While it is generally true in mathematics that calculations are designed to simplify complicated things, in algorithm design it is usually the other way around: simple but inefficient programs are transformed into more efficient versions that can be completely opaque. ” 结合自己的编程体会，这句话确实相当有意味，我们追求数学上的简洁与算法的美，但在工程实现中，往往会加入浑浊的东西，在试图优化了时间或者空间效率的同时，增加了代码的复杂度甚至扭曲了算法本身，这使得我们往往难以看清算法本身。而真正有价值的Pearls，在于同时体现了算法的简洁和其实现的简洁，使得代码本身并不是一种遮罩，或是迷雾，而是对计算本身的描述。<br>—————————————-<br>Problem One, The smallest free number<br>给定一个包含有限自然数的集合X，问题是找到不在X中的最小自然数。（0算是最小的自然数，不管现在教科书怎么定义的”_”）<br>这个问题并非毫无实际意义，熟悉博弈论中的SG函数就知道，一个状态的SG Value就是由他的后续状态的SG Value决定的，而决定方法就是找到后续SG Value中第一个没出现的自然数。<br>抛开这个问题的实际意义不然，这个问题也可以作为一个很有意思的面试问题，或者说纯粹的数学问题。如果集合X用一个数组表示，并且里面没有重复元素，并且他是排好序的，omg，这个问题就退化为最简单情形，找到第一个出现相邻元素差&gt;1的位置即可。<br>进一步，如果X用数组表示，并且里面没有重复元素，但是无序，怎么解？<br>一个简单的观察是，注意到如果X中的元素个数为|X|，那么其中至多包含0..|X| – 1的所有自然数，也就是说答案最大只可能是|X|，也就是说我们可以另外创建一个大小为|X|的数组Y，Y[i]表示自然数i在X中出现过，那么在统计结束之后，遍历Y数组找到第一个没出现的就是答案，如果找不到，答案就是|X|。<br>这个简单的观察推论使得这个问题得到了O(N)的解法，并且注意到即使X中存在重复元素，这个解法还是正确的，这个解法的额外代价就是O(N)的空间，但是其实现简洁高效，总之是个很不错的解决方案。<br>—————————————–<br>那在Functional Algorithm Design中这个问题怎么解，这个问题如果用Array来解，it is essentially a procedural program in functional clothing.<br>我们还是关注Functional Design，其出发点在于一切从定义出发:<br>需要设计函数minfree<br>minfree:: [Nat] -&gt; Nat<br>minfree xs = head ([0..] \ xs) — 数学定义<br>上面minfree的实现已经是可用的了，只是复杂度为O(N^2)。\ 表示集合的删除操作，A \ B = A \union (~B)。<br>接下来，需要化简[0..] \ xs，任取自然数b<br>[0..] \ xs = ([0..b-1] ++ [b..]) \ xs = ([0..b-1] \ xs) ++ ([b..] \ xs)<br>= ([0..b-1] \ us) ++ ([b..] \ vs) where (us, vs) = partition (<b) xs="" 第一行到第二行成立的原因是，[0..b-1]="" \\="" -="" 1]="" (filter="" <b="" xs)="" ，因为="">=b 的数已经不在[0..b-1]中，就没有必要再尝试删除了。<br>进一步我们再化简head (([0..b-1] \ us) ++ ([b..] \ vs))，当 length us == b时，表示&lt;b的数在us中都出现了，答案只能是 head ([b..] \ vs)，反之答案就是 head([0..b-1] \ us)。<br>所以得到以下实现</b)></p>
+		<p>最近在看完了Learn you a Haskell for great good之后，有许多感悟。这篇系列博客要谈的是另一个方面，关于Haskell这一类的函数式编程语言的共性，即是函数式编程和imperative语言相比在算法设计上的不同视角。 引入另一本书，Pearls of Functional Algorithm Design (Richard Bird)， 我们都知道 Programming Pearls (编程珠玑）， 这本书相当于针对FP的编程珠玑。 全书总共讲了30个例子，当然很多都太难暂时消化不了，但对于能够理解并有所体会的，本系列文章会加以讨论。<br>首先，我们谈一谈这本书作者本身的体会，”While it is generally true in mathematics that calculations are designed to simplify complicated things, in algorithm design it is usually the other way around: simple but inefficient programs are transformed into more efficient versions that can be completely opaque. ” 结合自己的编程体会，这句话确实相当有意味，我们追求数学上的简洁与算法的美，但在工程实现中，往往会加入浑浊的东西，在试图优化了时间或者空间效率的同时，增加了代码的复杂度甚至扭曲了算法本身，这使得我们往往难以看清算法本身。而真正有价值的Pearls，在于同时体现了算法的简洁和其实现的简洁，使得代码本身并不是一种遮罩，或是迷雾，而是对计算本身的描述。<br>—————————————-<br>Problem One, The smallest free number<br>给定一个包含有限自然数的集合X，问题是找到不在X中的最小自然数。（0算是最小的自然数，不管现在教科书怎么定义的”_”）<br>这个问题并非毫无实际意义，熟悉博弈论中的SG函数就知道，一个状态的SG Value就是由他的后续状态的SG Value决定的，而决定方法就是找到后续SG Value中第一个没出现的自然数。<br>抛开这个问题的实际意义不然，这个问题也可以作为一个很有意思的面试问题，或者说纯粹的数学问题。如果集合X用一个数组表示，并且里面没有重复元素，并且他是排好序的，omg，这个问题就退化为最简单情形，找到第一个出现相邻元素差&gt;1的位置即可。<br>进一步，如果X用数组表示，并且里面没有重复元素，但是无序，怎么解？<br>一个简单的观察是，注意到如果X中的元素个数为|X|，那么其中至多包含0..|X| – 1的所有自然数，也就是说答案最大只可能是|X|，也就是说我们可以另外创建一个大小为|X|的数组Y，Y[i]表示自然数i在X中出现过，那么在统计结束之后，遍历Y数组找到第一个没出现的就是答案，如果找不到，答案就是|X|。<br>这个简单的观察推论使得这个问题得到了O(N)的解法，并且注意到即使X中存在重复元素，这个解法还是正确的，这个解法的额外代价就是O(N)的空间，但是其实现简洁高效，总之是个很不错的解决方案。<br>—————————————–<br>那在Functional Algorithm Design中这个问题怎么解，这个问题如果用Array来解，it is essentially a procedural program in functional clothing.<br>我们还是关注Functional Design，其出发点在于一切从定义出发:<br>需要设计函数minfree<br>minfree:: [Nat] -&gt; Nat<br>minfree xs = head ([0..] \ xs) — 数学定义<br>上面minfree的实现已经是可用的了，只是复杂度为O(N^2)。\ 表示集合的删除操作，A \ B = A \union (~B)。<br>接下来，需要化简[0..] \ xs，任取自然数b<br>[0..] \ xs = ([0..b-1] ++ [b..]) \ xs = ([0..b-1] \ xs) ++ ([b..] \ xs)<br>= ([0..b-1] \ us) ++ ([b..] \ vs) where (us, vs) = partition (&lt;b) xs<br>第一行到第二行成立的原因是，[0..b-1] \ xs = [0..b - 1] \ (filter <b xs)="" ，因为="">=b 的数已经不在[0..b-1]中，就没有必要再尝试删除了。<br>进一步我们再化简head (([0..b-1] \ us) ++ ([b..] \ vs))，当 length us == b时，表示&lt;b的数在us中都出现了，答案只能是 head ([b..] \ vs)，反之答案就是 head([0..b-1] \ us)。<br>所以得到以下实现</b></p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">minfree</span> xs = minfrom <span class="number">0</span> (length xs, xs)</span><br><span class="line"><span class="title">minfrom</span> a (len, xs)</span><br><span class="line">    | len   == <span class="number">0</span>         = a</span><br><span class="line">    | usLen == b - a     = minfrom b (len - usLen, vs)</span><br><span class="line">    | otherwise          = minfrom a (usLen, us)</span><br><span class="line">    <span class="keyword">where</span> (us, vs) = partition (&lt;b) xs</span><br><span class="line">        b = a + <span class="number">1</span> + len div <span class="number">2</span></span><br><span class="line">        usLen = length us</span><br></pre></td></tr></table></figure>
 <p>这里，为了避免每次重复计算length us，所以将当前List的长度作为一个参数。 同时b总数选在上界和下界的二分位置，可以证明，该分治法复杂度为O(N)。 详细解释：minfrom a (len, xs)表示找到从a开始的自然数中，第一个不在xs中出现的数，当前xs的长度为len。 当len == 0时，表示xs集合为空，则a就是答案。 否则，我们选取b，并将xs 分成两部分，us, vs, 并判断usLen == b – a，若相等，则表示[a..b)中的数都出现了，则答案为minfrom b (len – usLen, vs)，否则为minfrom a (usLen, us)。<br>这样，我们就得到了一个不依赖数组的O(N)的解法，并且程序也相当简洁。<br>———————————–<br>后续，我思考在C++中能否也体现并实现这一算法，答案肯定是可以的，但问题是能否也这样简洁，这里用到了几个函数，partition在STL中有，但他能否支持(&lt;b)这样的形式内，经过尝试，答案是可以的，话不多说，代码如下：</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * <span class="type">Return</span> head ( [a..] \\ v[l..r) )</span><br><span class="line"> * no duplicated elements <span class="keyword">in</span> v !</span><br><span class="line"> */</span><br><span class="line"><span class="title">int</span> minfree(vector&lt;int&gt;&amp; v, int l, int r, int a)</span><br><span class="line">&#123;</span><br><span class="line">    int n = (r - l);</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) return a;</span><br><span class="line"> </span><br><span class="line">    int b = (a + (n + <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">    int mid = (int) (partition(v.begin() + l, v.begin() + r, </span><br><span class="line">        bind2nd(less&lt;int&gt;(), b)) - v.begin());</span><br><span class="line">    <span class="keyword">if</span> (mid - l == b - a)</span><br><span class="line">        return minfree(v, mid, r, b);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        return minfree(v, l, mid, a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>bind2nd(…)就是返回一个anyway who care it is，从而能够作为partition的函数参数，具体我也讲不清楚，但是借鉴Haskell的实现，就知道C++的一些STL实现他想表达的意思了。 我想这就是学习Haskell之后回过头来看C++能够得到的一些启示，你会发现，哦，原来这些东西是要表达这样的作用。<br>所以，Problem 1的体会，嗯，就是开个头吧。<br>最后，感谢hearson提供的SCALA实现</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.util._</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MinimumExclusion</span> </span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> upperBound = <span class="number">19999</span></span><br><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> sizeToDrop = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>(numbers: <span class="type">List</span>[<span class="type">Int</span>], lowerBound: <span class="type">Int</span> = <span class="number">0</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (numbers.isEmpty) lowerBound <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> pivot = numbers.head</span><br><span class="line">    <span class="keyword">val</span> (lowerHalf, upperHalf) = numbers.tail.partition(_ &lt; pivot)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (lowerHalf.size &lt; (pivot – lowerBound))</span><br><span class="line">        apply(lowerHalf, lowerBound)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        apply(upperHalf, pivot + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) = &#123;</span><br><span class="line">    <span class="keyword">val</span> orig = <span class="type">Random</span> shuffle (<span class="number">0</span> to upperBound).toList</span><br><span class="line">    println(<span class="string">"Numbers being dropped: "</span> + orig.take(sizeToDrop))</span><br><span class="line">    <span class="keyword">val</span> numbers = orig.drop(sizeToDrop)</span><br><span class="line">    println(<span class="string">"Minimum exclusion = "</span> + apply(numbers))</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.util._</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MinimumExclusion</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> upperBound = <span class="number">19999</span></span><br><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> sizeToDrop = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>(numbers: <span class="type">List</span>[<span class="type">Int</span>], lowerBound: <span class="type">Int</span> = <span class="number">0</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">    <span class="keyword">if</span> (numbers.isEmpty) lowerBound <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> pivot = numbers.head</span><br><span class="line">    <span class="keyword">val</span> (lowerHalf, upperHalf) = numbers.tail.partition(_ &lt; pivot)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (lowerHalf.size &lt; (pivot – lowerBound))</span><br><span class="line">        apply(lowerHalf, lowerBound)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        apply(upperHalf, pivot + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) = &#123;</span><br><span class="line">    <span class="keyword">val</span> orig = <span class="type">Random</span> shuffle (<span class="number">0</span> to upperBound).toList</span><br><span class="line">    println(<span class="string">"Numbers being dropped: "</span> + orig.take(sizeToDrop))</span><br><span class="line">    <span class="keyword">val</span> numbers = orig.drop(sizeToDrop)</span><br><span class="line">    println(<span class="string">"Minimum exclusion = "</span> + apply(numbers))</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 	
 	</div>
   <a type="button" href="/2014/05/07/最小未出现整数/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
-			
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -174,7 +217,7 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
@@ -225,8 +268,10 @@
   <a type="button" href="/2014/04/03/先下手真的为强吗？/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
-			
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -236,7 +281,7 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
@@ -256,8 +301,10 @@
   <a type="button" href="/2014/04/03/infinite-data-structure-&-cantor-set/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
-			
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -267,11 +314,11 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
-		<h2 id="分形"><a href="#分形" class="headerlink" title="分形"></a>分形</h2><p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="external">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
+		<h2 id="分形"><a href="#分形" class="headerlink" title="分形"></a>分形</h2><p>依然记得高中时第一次用VB绘制曼德勃罗集的情形，其代码本身非常简单，但绘制的图形确异常复杂，甚至让人感到惊叹，这也是第一次直面分形时带来的震撼。<br>自己高中时还捣鼓过自创的一个图形，其方法和灵感已经不记得了，<a href="http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B" target="_blank" rel="noopener">http://www.fractal.cn/message/read.asp?id=23&amp;subid=1&amp;subtype=%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B</a> 刚才搜索了一下，这个帖子还在，2003年。现在已经是2013年了。 当时非常的挫，只是在论坛上贴了一段vb代码，都没有截图，后来有人运行了我的程序，并给出了截图。</p>
 <p>现在看来，整个图形经过反复迭代，呈现了复杂性，当时这个代码是有些模仿曼德勃罗集的，即使反复迭代迭代，然后看迭代之后的值在那个区间范围，然后涂上不同的颜色即可。 当然能产生这样的效果，多少是运气的成分。</p>
 <h2 id="Answer-is-42"><a href="#Answer-is-42" class="headerlink" title="Answer is 42"></a>Answer is 42</h2><p>不管怎么说，这是自己曾经的一种探索。<br>今天突然又回想起了这些碎片，想到了生命游戏之类的简单却又异常复杂的结构。 特别是想到之前看到了《银河系漫游指南》 其中讲到，the answer to the universe is 42. Why 42? 电影呈现了一个非常搞笑的梗，即使一台能够计算一切的超级人工智能计算机经过计算最后得出了宇宙的终极答案：42。 当时，电影中的所有人都崩溃了，不知道这是什么。 但是计算机很确信，嗯，确实是42.<br>今天这篇日志，在扯淡的同时想要表达一种思考，answer is 42究竟有没有意义？ 我们从元胞自动机来讲起。</p>
 <h2 id="元胞自动机"><a href="#元胞自动机" class="headerlink" title="元胞自动机"></a>元胞自动机</h2><p>元胞自动机的实现非常简单，整个空间是一个二维网格，每个网格要么是1，要么是0。 一开始第一行除了最中间的网格为1，其余都为0，然后整个生命开始一行一行迭代，每一行的值依赖于上一行的结果。 其迭代规则由一个表格决定：</p>
@@ -313,8 +360,10 @@
   <a type="button" href="/2014/04/03/cellular-automata/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
-			
+           
+			  
 	
 	<!-- display as entry -->	
 		<h3 class="title">
@@ -324,7 +373,7 @@
 	
 
 
-			<div class="entry">
+			  <div class="entry">
   <div class="row">
 	
 	
@@ -336,6 +385,7 @@
   <a type="button" href="/2014/04/03/废话有信息量吗？/#more" class="btn btn-default more">Read More</a>
 </div>
 
+           
 		
 
 		</div>
@@ -368,6 +418,25 @@
   <div id="local-search-result"></div>
   </div>
 
+
+		
+			<div class="widget">
+    
+	    <h4 class="dsq-widget-title">Recent Comments</h4>
+		<div id="recent-comments"></div>
+		<script type="text/javascript">
+		    getRecentCommentsList({
+			   type: "github" ? "github" : "github",
+			   user: "wzpan",
+               repo: "hexo-theme-freemind-blog",
+               client_id: "bf7d4ba11877db88543e",
+               client_secret: "bff8a6b06b745c0bfcdccbe225623ea8e2a057bb",
+			   count: "5" ? "5" : 5,
+			   recent_comments_target: "#recent-comments"
+			});
+		</script>
+	
+</div>
 
 		
 			
@@ -419,7 +488,11 @@
 	<h4>Links</h4>
 	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/pigoneand" title="My Github account." target="_blank"]);">My Github</a></li>
+		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/freemind/" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="http://www.github.com/wzpan" title="My Github account." target="_blank"]);">My Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/hahack" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
 	
 	</ul>
 </div>
@@ -433,11 +506,12 @@
 	
 </div> <!-- row-fluid -->
 
+
 	</div>
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2016 Yihe Zhu
+  &copy; 2018 7788
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -475,6 +549,26 @@
 	 var path = "/" + search_path;
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
+
+
+<!-- syntax highlighting -->
+
+  <script>
+  marked.setOptions({
+    highlight: function (code, lang) {
+        return hljs.highlightAuto(code).value;
+    }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+        if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+  </script>
+
 
 </body>
    </html>

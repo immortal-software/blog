@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   
-  <title>先下手真的为强吗？ | 猪逻辑公园</title>
-  <meta name="author" content="Yihe Zhu">
+  <title>先下手真的为强吗？ | 软件不朽</title>
+  <meta name="author" content="7788">
   
   <meta name="description" content="先下手为强，后下手遭殃！
 打铁还需自身硬！
@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="先下手真的为强吗？"/>
-  <meta property="og:site_name" content="猪逻辑公园"/>
+  <meta property="og:site_name" content="软件不朽"/>
 
   
     <meta property="og:image" content="undefined"/>
@@ -27,27 +27,30 @@
   
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/css/themes/bootstrap.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight-default.min.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" href="/css/comment.css" media="screen" type="text/css">
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+  <![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
-
+  
+    <script src="/js/marked.js"></script>
+    <script src="/js/comment.js"></script>
+    <script src="/js/timeago.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+	<script src="/js/spin.min.js"></script>
+  
   <!-- analytics -->
   
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-27933108-2', 'auto');
-  ga('send', 'pageview');
-</script>
-
 
 
 
@@ -62,13 +65,31 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-       <a class="navbar-brand" href="/">猪逻辑公园</a>
+       <a class="navbar-brand" href="/">软件不朽</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
 		  <li>
 			<a href="/archives" title="All the articles.">
 			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
 			</a>
 		  </li>
 		  
@@ -149,6 +170,9 @@
 	  
 	</div>
 
+	<!-- recommended posts -->
+	
+
 	<div>
   	<center>
 	<div class="pagination">
@@ -198,9 +222,29 @@
 	
 <section id="comment">
   <h2 class="title">Comments</h2>
-
+    	 
+	 <div id="comment-thread"></div>
+	 <div id="loading-spin"></div>
+	 <script type="text/javascript">
+	   getComments({
+           type: "github" ? "github" : "github",       
+	       user: "wzpan",
+	       repo: "hexo-theme-freemind-blog",
+		   client_id: "bf7d4ba11877db88543e",
+           client_secret: "bff8a6b06b745c0bfcdccbe225623ea8e2a057bb",
+		   no_comment: "No comments yet. Press the button and go to comment now!",
+		   go_to_comment: "Go to comment",
+		   no_issue: "no_issue",
+		   issue_title: "先下手真的为强吗？",
+		   issue_id: "undefined",
+		   btn_class: "btn btn-primary",
+		   comments_target: "#comment-thread",
+		   loading_target: "#loading_spin"
+		   });
+	 </script>
   
 </section>
+
 
 	</div> <!-- col-md-9/col-md-12 -->
 		
@@ -220,7 +264,7 @@
     
 
 	<!-- tags -->
-		
+	
 
 	<!-- toc -->
 	<div class="meta-widget">
@@ -242,7 +286,7 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2016 Yihe Zhu
+  &copy; 2018 7788
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -280,6 +324,26 @@
 	 var path = "/" + search_path;
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
+
+
+<!-- syntax highlighting -->
+
+  <script>
+  marked.setOptions({
+    highlight: function (code, lang) {
+        return hljs.highlightAuto(code).value;
+    }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+        if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+  </script>
+
 
 </body>
    </html>

@@ -3,16 +3,16 @@
 ## Source: https://github.com/tommy351/hexo/
 
 # Site
-title: 猪逻辑公园
+title: 软件不朽
 subtitle:
 description:
-author: Yihe Zhu
-email: sjtu.pigoneand@gmail.com
+author: 7788
+email: immortal_software@qq.com
 language:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.pigoneand.info
+url: immortal-software.github.io
 root: /
 permalink: :year/:month/:day/:title/
 tag_dir: tags
@@ -106,6 +106,6 @@ stylus:
 
 deploy:
   type: git
-  repo: git@github.com:pigoneand/pigoneand.github.io.git 
+  repo: git@github.com:immortal-software/immortal-software.github.io.git 
   branch: master
   message: 
