@@ -83,3 +83,7 @@ deploy:
   branch: master
   message:
 
+# google
+google_analytics: UA-27933108-4
+
+
